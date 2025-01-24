@@ -20,7 +20,7 @@
 
 ## Access the Database
 
-You can download the pre-scraped Discogs database from the following Google Drive folder:
+You can download the pre-scraped Discogs database (without ratings & have/want counts) from the following Google Drive folder:
 
 🔗 [**Download Discogs Scraping Database**](https://drive.google.com/drive/folders/1qSxAppODHQZaoWAQWcRIxZ-z46sc_56E?usp=sharing)
 
