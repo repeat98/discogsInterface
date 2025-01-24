@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Top-Rated Techno Vinyl Labels of All Time (Discogs)</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+  <style>
+    /* ===== Global Body Styling ===== */
+    body {
+      background-color: #f4f6f9;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* ===== Navbar Styling ===== */
+    .navbar {
+      background-color: #1a202c;
+      box-shadow: 0 4px 6px -6px #222;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      color: #fff !important;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand i {
+      margin-right: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    /* ===== Header Styling ===== */
+    header {
+      text-align: center;
+      padding: 3rem 0 2rem 0;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: #1a202c;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #6c757d;
+    }
+
+    /* ===== Filter/Search Form ===== */
+    .filter-form {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 3rem;
+      max-width: 100%;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .filter-form .form-label {
+      font-weight: 600;
+    }
+
+    /* ===== Table Container & Responsive ===== */
+    .table-container {
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 2rem;
+    }
+
+    .table-responsive {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      background-color: #ffffff;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    table {
+      min-width: 100%;
+      table-layout: fixed;
+    }
+
+    thead th {
+      background-color: #2d3748;
+      color: #ffffff;
+      font-weight: 600;
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #f9fafb;
+    }
+
+    tbody tr:hover {
+      background-color: #edf2f7;
+    }
+
+    th,
+    td {
+      padding: 0.75rem;
+      vertical-align: middle;
+    }
+
+    /* ===== No Results Styling ===== */
+    .no-results {
+      text-align: center;
+      padding: 3rem 0;
+      color: #718096;
+    }
+
+    .no-results i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== Footer Styling ===== */
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    footer small {
+      color: #6c757d;
+    }
+
+    /* ===== YouTube Iframe Styling ===== */
+    iframe.table-iframe {
+      border-radius: 8px;
+      width: 100%;
+      height: auto;
+      max-width: 220px;
+      aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+    }
+
+    @media (max-width: 768px) {
+      iframe.table-iframe {
+        width: 100% !important;
+        height: auto !important;
+      }
+      th,
+      td {
+        white-space: normal;
+      }
+    }
+
+    /* ===== Pagination Styling ===== */
+    .pagination {
+      justify-content: center;
+    }
+
+    .page-link {
+      color: #3182ce;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .page-link:hover {
+      background-color: #e2e8f0;
+      color: #2c5282;
+    }
+
+    .page-item.active .page-link {
+      background-color: #3182ce;
+      border-color: #3182ce;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-stars"></i>Top-Rated Techno Vinyl Labels of All Time (Discogs)
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container my-5">
+
+    <!-- Filter/Search Form -->
+    <form id="filter-form" class="filter-form">
+      <div class="row g-4 align-items-end">
+        <!-- Search Input (Label/Release Title) -->
+        <div class="col-md-3">
+          <label for="search_query" class="form-label">Search</label>
+          <input
+            type="text"
+            id="search_query"
+            name="search_query"
+            class="form-control"
+            placeholder="Search by Label or Release Title..."
+            aria-label="Search by Label or Release Title"
+          />
+        </div>
+        <!-- Genre Filter -->
+        <div class="col-md-2">
+          <label for="genre" class="form-label">Genre</label>
+          <select
+            id="genre"
+            name="genre"
+            class="form-select"
+            aria-label="Filter by Genre"
+          >
+            <option value="">All Genres</option>
+          </select>
+        </div>
+        <!-- Style Filter -->
+        <div class="col-md-2">
+          <label for="style" class="form-label">Style</label>
+          <select
+            id="style"
+            name="style"
+            class="form-select"
+            aria-label="Filter by Style"
+          >
+            <option value="">All Styles</option>
+          </select>
+        </div>
+        <!-- Year ≥ -->
+        <div class="col-md-2">
+          <label for="year_min" class="form-label">Year ≥</label>
+          <input
+            type="number"
+            id="year_min"
+            name="year_min"
+            class="form-control"
+            placeholder="e.g. 1995"
+            aria-label="Minimum Year"
+          />
+        </div>
+        <!-- Year ≤ -->
+        <div class="col-md-2">
+          <label for="year_max" class="form-label">Year ≤</label>
+          <input
+            type="number"
+            id="year_max"
+            name="year_max"
+            class="form-control"
+            placeholder="e.g. 2000"
+            aria-label="Maximum Year"
+          />
+        </div>
+        <!-- Filter Button -->
+        <div class="col-md-1">
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="bi bi-funnel-fill"></i> Filter
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Top Labels Table -->
+    <div class="table-container" id="labels-container">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered mb-0" id="labels-table">
+          <thead>
+            <tr>
+              <th style="width: 80px;">Rank</th>
+              <th>Label</th>
+              <th style="width: 150px;"># of Releases</th>
+              <th style="width: 160px;">Avg Rating Coeff</th>
+              <th style="width: 160px;">Bayesian Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      <!-- Pagination Controls -->
+      <nav class="mt-3" aria-label="Page navigation">
+        <ul class="pagination" id="labels-pagination">
+          <!-- Populated by JavaScript -->
+        </ul>
+      </nav>
+    </div>
+
+    <hr class="my-5" />
+
+    <!-- Label Releases Table -->
+    <div id="releases-section" style="display: none;">
+      <h2 id="releases-title" class="mb-4"></h2>
+      <div class="table-container">
+        <div class="table-responsive">
+          <!-- Releases Table -->
+          <table class="table table-hover table-bordered mb-0" id="releases-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th style="width: 160px;">Label</th>
+                <th style="width: 80px;" class="text-center">Year</th>
+                <th>Genre / Style</th>
+                <th style="width: 150px;" class="text-center">User Rating</th>
+                <th style="width: 100px;" class="text-center">Rarity</th>
+                <th style="width: 100px;" class="text-center">Gem⟡</th>
+                <th style="width: 70px;" class="text-center">Have</th>
+                <th style="width: 70px;" class="text-center">Want</th>
+                <th style="width: 220px;" class="text-center">Preview</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- /container -->
+
+  <!-- Footer -->
+  <footer>
+    <small>&copy; 2025 Jannik Aßfalg</small>
+  </footer>
+
+  <!-- Bootstrap JS (with Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Embedded DB Data (adapted from your given schema) -->
+  <script>
+    // Example: Replace this with your actual releases data
+    const releasesData = [
+      {
+        "average_rating": 5.0,
+        "country": "Mexico",
+        "demand_coeff": 0.75,
+        "gem_value": 2.3863636363636362,
+        "genre": "Electronic",
+        "have": 3,
+        "id": 1,
+        "label": "RCA",  // Key aggregator for the label
+        "link": "https://www.discogs.com/release/16875240",
+        "lowest_price": 14.33,
+        "rating_coeff": 3.1818181818181817,
+        "rating_count": 1,
+        "style": "Techno",
+        "title": "India (2) - India - Stay With Me (Special Remix) Disco-Tec Sencillo = Quédate Conmigo",
+        "want": 3,
+        "year": "1983",
+        "youtube_links": "https://www.youtube.com/watch?v=96XKde8YHk8"
+      }
+      // ... Add more release objects as needed
+    ];
+
+    // Bayesian Ranking Parameters
+    const BAYESIAN_M = 5; // Minimum # of releases factor for the Bayesian formula
+
+    // Will store the aggregated labels data after filtering
+    let labelsData = [];
+
+    // For pagination
+    let currentPage = 1;
+    const LABELS_PER_PAGE = 10;
+
+    // ---- Utility: Extract YouTube ID from a URL
+    function extractYouTubeID(url) {
+      const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    // ---- Build Genre/Style sets for the entire dataset
+    const allGenres = new Set();
+    const allStyles = new Set();
+
+    releasesData.forEach((release) => {
+      // accumulate genres
+      if (release.genre) {
+        release.genre.split(",").forEach((g) => {
+          const trimmed = g.trim();
+          if (trimmed) allGenres.add(trimmed);
+        });
+      }
+      // accumulate styles
+      if (release.style) {
+        release.style.split(",").forEach((s) => {
+          const trimmed = s.trim();
+          if (trimmed) allStyles.add(trimmed);
+        });
+      }
+    });
+
+    // ---- On DOMContentLoaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize genre/style dropdowns
+      initFilterDropdowns();
+
+      // Initial aggregator pass with no filters
+      applyFilters();
+
+      // Setup filter form event
+      const filterForm = document.getElementById("filter-form");
+      filterForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        currentPage = 1;
+        applyFilters();
+      });
+    });
+
+    // ---- Populate the Genre/Style <select> elements
+    function initFilterDropdowns() {
+      const genreSelect = document.getElementById("genre");
+      const styleSelect = document.getElementById("style");
+
+      const sortedGenres = [...allGenres].sort();
+      const sortedStyles = [...allStyles].sort();
+
+      // Add to genre dropdown
+      sortedGenres.forEach((g) => {
+        const option = document.createElement("option");
+        option.value = g;
+        option.textContent = g;
+        genreSelect.appendChild(option);
+      });
+
+      // Add to style dropdown
+      sortedStyles.forEach((s) => {
+        const option = document.createElement("option");
+        option.value = s;
+        option.textContent = s;
+        styleSelect.appendChild(option);
+      });
+    }
+
+    // ---- Applies user filters to build a filtered subset, then aggregates + sorts labels
+    function applyFilters() {
+      const searchQuery = document
+        .getElementById("search_query")
+        .value.toLowerCase()
+        .trim();
+      const selectedGenre = document.getElementById("genre").value;
+      const selectedStyle = document.getElementById("style").value;
+      const yearMin =
+        parseInt(document.getElementById("year_min").value) || -Infinity;
+      const yearMax =
+        parseInt(document.getElementById("year_max").value) || Infinity;
+
+      // Filter the releases data
+      const filteredReleases = releasesData.filter((release) => {
+        // Check year
+        const rYear = parseInt(release.year) || 0;
+        if (rYear < yearMin || rYear > yearMax) {
+          return false;
+        }
+
+        // Check genre
+        if (selectedGenre) {
+          const releaseGenres = release.genre
+            ? release.genre.split(",").map((g) => g.trim())
+            : [];
+          if (!releaseGenres.includes(selectedGenre)) {
+            return false;
+          }
+        }
+
+        // Check style
+        if (selectedStyle) {
+          const releaseStyles = release.style
+            ? release.style.split(",").map((s) => s.trim())
+            : [];
+          if (!releaseStyles.includes(selectedStyle)) {
+            return false;
+          }
+        }
+
+        // Check search (on Label or Title)
+        if (searchQuery) {
+          const labelLower = release.label ? release.label.toLowerCase() : "";
+          const titleLower = release.title ? release.title.toLowerCase() : "";
+          if (
+            !labelLower.includes(searchQuery) &&
+            !titleLower.includes(searchQuery)
+          ) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      // Re-aggregate from the filtered releases
+      labelsData = aggregateLabelsData(filteredReleases);
+
+      // Sort labels by Bayesian score
+      labelsData.sort((a, b) => b.bayesianScore - a.bayesianScore);
+
+      // Re-draw the table with the new results
+      populateLabelsTable(currentPage);
+    }
+
+    // ---- Single pass aggregator to build label objects from a subset of releases
+    function aggregateLabelsData(releasesSubset) {
+      let totalRatingAll = 0;
+      let totalCountAll = 0;
+      const labelMap = {};
+
+      // Build aggregator
+      releasesSubset.forEach((rel) => {
+        const labelName = rel.label || "Unknown Label";
+        const ratingCoeff = parseFloat(rel.rating_coeff) || 0;
+
+        totalRatingAll += ratingCoeff;
+        totalCountAll += 1;
+
+        if (!labelMap[labelName]) {
+          labelMap[labelName] = {
+            totalRatingCoeff: 0,
+            count: 0,
+            releases: []
+          };
+        }
+        labelMap[labelName].totalRatingCoeff += ratingCoeff;
+        labelMap[labelName].count += 1;
+        labelMap[labelName].releases.push(rel);
+      });
+
+      const globalAverage = totalCountAll > 0 ? totalRatingAll / totalCountAll : 0;
+
+      // Build final array of labels with Bayesian
+      return Object.entries(labelMap).map(([labelName, data]) => {
+        const averageRatingCoeff =
+          data.count > 0 ? data.totalRatingCoeff / data.count : 0;
+        // Bayesian formula
+        const bayesianScore =
+          (BAYESIAN_M * globalAverage + data.totalRatingCoeff) /
+          (BAYESIAN_M + data.count);
+
+        return {
+          label: labelName,
+          averageRatingCoeff: averageRatingCoeff,
+          count: data.count,
+          bayesianScore: bayesianScore,
+          releases: data.releases
+        };
+      });
+    }
+
+    // ---- Populate labels table
+    function populateLabelsTable(page) {
+      const tbody = document.querySelector("#labels-table tbody");
+      tbody.innerHTML = "";
+
+      // Calculate pagination
+      const totalLabels = labelsData.length;
+      const totalPages = Math.ceil(totalLabels / LABELS_PER_PAGE);
+      const startIndex = (page - 1) * LABELS_PER_PAGE;
+      const endIndex = Math.min(startIndex + LABELS_PER_PAGE, totalLabels);
+
+      if (totalLabels === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="no-results">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+              <p>No Labels Found</p>
+            </td>
+          </tr>
+        `;
+        updatePaginationControls(page, totalPages);
+        return;
+      }
+
+      let rowsHTML = "";
+      for (let i = startIndex; i < endIndex; i++) {
+        const labelItem = labelsData[i];
+        rowsHTML += `
+          <tr>
+            <td class="text-center">${i + 1}</td>
+            <td 
+              class="text-primary fw-semibold" 
+              style="cursor: pointer;" 
+              data-label-index="${i}"
+            >
+              ${labelItem.label}
+            </td>
+            <td class="text-center">${labelItem.count}</td>
+            <td class="text-center">${labelItem.averageRatingCoeff.toFixed(3)}</td>
+            <td class="text-center">${labelItem.bayesianScore.toFixed(3)}</td>
+          </tr>
+        `;
+      }
+
+      tbody.innerHTML = rowsHTML;
+
+      // Event listener for label clicks
+      tbody.removeEventListener("click", handleLabelClick);
+      tbody.addEventListener("click", handleLabelClick);
+
+      // Update pagination controls
+      updatePaginationControls(page, totalPages);
+    }
+
+    // ---- Handle label row click
+    function handleLabelClick(e) {
+      const target = e.target.closest("[data-label-index]");
+      if (!target) return; // Clicked outside a valid cell
+
+      const labelIndex = parseInt(target.getAttribute("data-label-index"), 10);
+      const selectedLabel = labelsData[labelIndex];
+      showLabelReleases(selectedLabel);
+    }
+
+    // ---- Update pagination controls
+    function updatePaginationControls(page, totalPages) {
+      const pagination = document.getElementById("labels-pagination");
+      pagination.innerHTML = "";
+
+      if (totalPages <= 1) return;
+
+      // Prev button
+      const prevLi = document.createElement("li");
+      prevLi.classList.add("page-item");
+      if (page === 1) prevLi.classList.add("disabled");
+      const prevLink = document.createElement("a");
+      prevLink.classList.add("page-link");
+      prevLink.href = "#";
+      prevLink.innerHTML = `<i class="bi bi-chevron-left"></i> Prev`;
+      prevLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+          currentPage--;
+          populateLabelsTable(currentPage);
+        }
+      });
+      prevLi.appendChild(prevLink);
+      pagination.appendChild(prevLi);
+
+      // Page range
+      let startPage = Math.max(1, page - 2);
+      let endPage = Math.min(totalPages, page + 2);
+      if (page <= 3) endPage = Math.min(5, totalPages);
+      if (page >= totalPages - 2) startPage = Math.max(1, totalPages - 4);
+
+      for (let i = startPage; i <= endPage; i++) {
+        const pageLi = document.createElement("li");
+        pageLi.classList.add("page-item");
+        if (i === page) pageLi.classList.add("active");
+        const pageLink = document.createElement("a");
+        pageLink.classList.add("page-link");
+        pageLink.href = "#";
+        pageLink.textContent = i;
+        pageLink.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          currentPage = i;
+          populateLabelsTable(currentPage);
+        });
+        pageLi.appendChild(pageLink);
+        pagination.appendChild(pageLi);
+      }
+
+      // Next button
+      const nextLi = document.createElement("li");
+      nextLi.classList.add("page-item");
+      if (page === totalPages) nextLi.classList.add("disabled");
+      const nextLink = document.createElement("a");
+      nextLink.classList.add("page-link");
+      nextLink.href = "#";
+      nextLink.innerHTML = `Next <i class="bi bi-chevron-right"></i>`;
+      nextLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+          currentPage++;
+          populateLabelsTable(currentPage);
+        }
+      });
+      nextLi.appendChild(nextLink);
+      pagination.appendChild(nextLi);
+    }
+
+    // ---- Show releases for selected label
+    function showLabelReleases(labelData) {
+      const releasesSection = document.getElementById("releases-section");
+      const releasesTitle = document.getElementById("releases-title");
+      const releasesTbody = document.querySelector("#releases-table tbody");
+
+      releasesSection.style.display = "block";
+      releasesTitle.textContent = `Releases on Label: "${labelData.label}"`;
+
+      // Clear previous
+      releasesTbody.innerHTML = "";
+
+      if (labelData.releases.length === 0) {
+        releasesTbody.innerHTML = `
+          <tr>
+            <td colspan="10" class="no-results">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+              <p>No releases found for this label.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      let rowsHTML = "";
+      labelData.releases.forEach((rel) => {
+        const genre = rel.genre || "Unknown";
+        const style = rel.style || "Unknown";
+
+        const genreBadge = `<span class="badge bg-primary me-1">${genre}</span>`;
+        const styleBadges = style
+          .split(",")
+          .map((s) => `<span class="badge bg-info me-1">${s.trim()}</span>`)
+          .join("");
+
+        const ratingCoeff = rel.rating_coeff !== undefined
+          ? parseFloat(rel.rating_coeff).toFixed(2)
+          : "0.00";
+        const ratingCount = rel.rating_count || 0;
+        const demandCoeff = rel.demand_coeff ? rel.demand_coeff.toFixed(2) : "0.00";
+        const gemValue = rel.gem_value ? rel.gem_value.toFixed(2) : "0.00";
+        const have = rel.have || 0;
+        const want = rel.want || 0;
+
+        // YouTube preview
+        let previewHTML = `<span class="text-muted">No links</span>`;
+        if (rel.youtube_links) {
+          const links = rel.youtube_links
+            .split(",")
+            .map((l) => l.trim())
+            .filter((l) => l);
+          if (links.length > 0) {
+            const youtubeID = extractYouTubeID(links[0]);
+            if (youtubeID) {
+              previewHTML = `
+                <iframe 
+                  class="table-iframe" 
+                  loading="lazy" 
+                  title="YouTube video player" 
+                  aria-label="YouTube video player" 
+                  src="https://www.youtube.com/embed/${youtubeID}?rel=0&modestbranding=1" 
+                  frameborder="0" 
+                  allowfullscreen
+                ></iframe>
+              `;
+            } else {
+              previewHTML = `<span class="text-muted">Invalid link</span>`;
+            }
+          }
+        }
+
+        rowsHTML += `
+          <tr>
+            <td>
+              <a href="${rel.link}" target="_blank" rel="noopener noreferrer">
+                ${rel.title}
+              </a>
+            </td>
+            <td>${rel.label || "Unknown"}</td>
+            <td class="text-center">${rel.year || ""}</td>
+            <td>${genreBadge}${styleBadges}</td>
+            <td class="text-center">${ratingCoeff} (${ratingCount})</td>
+            <td class="text-center">${demandCoeff}</td>
+            <td class="text-center">${gemValue}</td>
+            <td class="text-center">${have}</td>
+            <td class="text-center">${want}</td>
+            <td class="text-center">${previewHTML}</td>
+          </tr>
+        `;
+      });
+
+      releasesTbody.innerHTML = rowsHTML;
+    }
+  </script>
+</body>
+</html>
