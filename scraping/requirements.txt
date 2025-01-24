@@ -1,0 +1,6 @@
+sqlite3
+argparse
+requests
+requests_oauthlib
+cryptography
+tqdm
