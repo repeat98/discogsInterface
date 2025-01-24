@@ -18,6 +18,12 @@
 - [License](#license)
 - [Contact](#contact)
 
+## Access the Database
+
+You can download the pre-scraped Discogs database from the following Google Drive folder:
+
+🔗 [**Download Discogs Scraping Database**](https://drive.google.com/drive/folders/1qSxAppODHQZaoWAQWcRIxZ-z46sc_56E?usp=sharing)
+
 ## Overview
 
 **Discogs Data Manager** is a comprehensive toolset designed to interact with the Discogs API, manage release data within a SQLite database, analyze the collected data, and present insights through a user-friendly web interface. Whether you're a music enthusiast, collector, or developer, this repository provides the necessary tools to efficiently handle and analyze your Discogs data.
