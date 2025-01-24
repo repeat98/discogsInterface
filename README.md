@@ -1,6 +1,5 @@
 # Discogs Data Manager
 
-![Discogs Logo](https://www.discogs.com/static/images/discogs-logo.png)
 
 ## Table of Contents
 - [Overview](#overview)
@@ -56,8 +55,8 @@
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/discogs-data-manager.git
-   cd discogs-data-manager
+   git clone https://github.com/repeat98/discogsInterface.git
+   cd discogsInterface
    ```
 
 2. **Create a Virtual Environment (Optional but Recommended)**
