@@ -1,0 +1,86 @@
+=== Extended Discogs Database Analysis Summary ===
+
+See 'summary_report.txt' for base statistics.
+
+=== Multiple Linear Regression Insights ===
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           lowest_price   R-squared:                       0.076
+Model:                            OLS   Adj. R-squared:                  0.076
+Method:                 Least Squares   F-statistic:                     1355.
+Date:                Mon, 20 Jan 2025   Prob (F-statistic):               0.00
+Time:                        10:54:02   Log-Likelihood:            -4.7544e+05
+No. Observations:               99329   AIC:                         9.509e+05
+Df Residuals:                   99322   BIC:                         9.510e+05
+Df Model:                           6                                         
+Covariance Type:            nonrobust                                         
+======================================================================================
+                         coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+const                  1.3736      1.033      1.330      0.183      -0.650       3.397
+gem_value              1.5154      0.068     22.369      0.000       1.383       1.648
+demand_coefficient    -4.3168      0.238    -18.163      0.000      -4.783      -3.851
+rating_coefficient     0.4667      0.322      1.448      0.148      -0.165       1.098
+average_rating         0.6708      0.083      8.094      0.000       0.508       0.833
+want                   0.0258      0.001     49.038      0.000       0.025       0.027
+have                  -0.0109      0.000    -30.542      0.000      -0.012      -0.010
+==============================================================================
+Omnibus:                   293202.919   Durbin-Watson:                   1.990
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):      49090087748.540
+Skew:                          41.672   Prob(JB):                         0.00
+Kurtosis:                    3446.002   Cond. No.                     5.29e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 5.29e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+=== Feature Importance (Random Forest) ===
+                                            feature  importance
+                                          gem_value    0.118381
+                                     average_rating    0.084186
+                                               want    0.082006
+                                       num_for_sale    0.064734
+  format_Vinyl, 12", 33 ⅓ RPM, EP, Mispress, Stereo    0.047641
+                                               have    0.042583
+                                       rating_count    0.034844
+            style_Techno, Electro, Video Game Music    0.031403
+                                 demand_coefficient    0.029156
+                                         num_tracks    0.028155
+                                               year    0.027707
+                                 total_duration_min    0.025867
+                                 rating_coefficient    0.025711
+format_Vinyl, 12", Compilation, Picture Disc, Promo    0.025063
+                        style_Techno, Electro, Acid    0.020369
+   style_Techno, Synth-pop, Ballad, J-pop, Pop Rock    0.013163
+     format_Vinyl, 12", EP, 33 ⅓ RPM, 45 RPM, Promo    0.011931
+     style_Gabber, Happy Hardcore, Hardcore, Techno    0.009241
+                                         country_US    0.008476
+                                     country_Europe    0.006848
+See 'feature_importance.png' for the corresponding plot.
+
+=== Feature Importance (Gradient Boosting) ===
+                                                               feature  importance
+                                                          num_for_sale    0.146891
+                                                                  want    0.143932
+                     format_Vinyl, 12", 33 ⅓ RPM, EP, Mispress, Stereo    0.134337
+                                                             gem_value    0.114079
+                               style_Techno, Electro, Video Game Music    0.078042
+                                                                  have    0.060273
+                   format_Vinyl, 12", Compilation, Picture Disc, Promo    0.054268
+                                                        average_rating    0.046536
+                      style_Techno, Synth-pop, Ballad, J-pop, Pop Rock    0.028675
+                                              style_Techno, Industrial    0.019634
+                                                                  year    0.017752
+                        format_Vinyl, 12", EP, 33 ⅓ RPM, 45 RPM, Promo    0.016222
+format_Vinyl, LP, Album, Limited Edition, Numbered, Promo, White Label    0.011360
+                         format_Vinyl, 12", 33 ⅓ RPM, Single Sided, EP    0.010969
+                               style_Breakbeat, House, Techno, Electro    0.008308
+                                                            num_tracks    0.007117
+                                                    total_duration_min    0.006405
+       format_Vinyl, 12", Limited Edition, Picture Disc, 45 RPM, Mixed    0.006048
+                                                        country_Norway    0.005184
+                                                    rating_coefficient    0.005005
+See 'gbm_feature_importance.png' for the corresponding plot.
+

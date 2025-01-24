@@ -1,0 +1,500 @@
+=== Discogs Database Analysis Summary ===
+
+Total Releases: 203195
+Average Rating: 3.85
+Median Rating: 4.25
+Average Rating Count: 23.50
+Average Demand Coefficient: 1.64
+Average Gem Value: 5.83
+Average Lowest Price: $10.78
+Average Number of Tracks: 4.60
+Average Total Duration: 11.62 minutes
+
+Top 10 Genres:
+genre
+Electronic     203195
+Rock             1466
+Pop              1069
+Hip Hop          1045
+Funk / Soul       452
+Jazz              382
+Folk              376
+World             376
+& Country         376
+Reggae            356
+
+Top 10 Styles (Excluding 'Techno'):
+style
+House           25367
+Acid            21211
+Minimal         19622
+Tech House      19173
+Electro         18364
+Dub Techno       8788
+Hardcore         8756
+Experimental     8669
+Deep House       8304
+Trance           8183
+
+Top 100 Labels by Popularity (Average Want + Average Rating Coefficient):
+                      label_name  average_want  average_rating_coeff  release_count  popularity_score
+            Funky Groove Records   4355.000000              4.691472              1       4359.691472
+               Westbound Records   4347.000000              4.112239              5       4351.112239
+              Epic Records Group   4322.000000              4.407353              1       4326.407353
+           West Side Records (8)   3026.000000              4.699137              1       3030.699137
+                    Track Record   2731.000000              3.788671              2       2734.788671
+                           Roulé   2279.222222              4.293462              9       2283.515684
+   Deathlike Silence Productions   2254.000000              4.420654              1       2258.420654
+                       The Brane   2223.000000              4.681778              1       2227.681778
+                    Downtown 161   2167.000000              4.559211              1       2171.559211
+                          75 Ark   2155.000000              4.476887              1       2159.476887
+         Flourescent Forest Rec.   2131.000000              4.415254              1       2135.415254
+                   Planet Uterus   2116.000000              4.712941              1       2120.712941
+                  Kif Recordings   1976.250000              4.062254              8       1980.312254
+                 Bigshot Records   1944.000000              4.595578              1       1948.595578
+                           Wrong   1918.000000              4.216842              1       1922.216842
+                Devolver Digital   1828.000000              4.715258              2       1832.715258
+                  Dennaton Games   1828.000000              4.715258              2       1832.715258
+                       Forum (7)   1781.800000              4.657073              5       1786.457073
+Not On Label (LFO Self-released)   1722.000000              4.512568              1       1726.512568
+ Love Peace And Unity Recordings   1714.000000              4.660351              1       1718.660351
+                  Allabi Records   1706.000000              4.414088              2       1710.414088
+               Code Blue Records   1694.000000              4.577333              1       1698.577333
+                   Polar Records   1645.000000              4.712162              1       1649.712162
+                      Traumprinz   1638.250000              4.286870              8       1642.536870
+                    Symple Sound   1636.000000              4.644778              1       1640.644778
+                        Likemind   1617.600000              4.303664             10       1621.903664
+                Hippie Dance (2)   1613.000000              4.287288              1       1617.287288
+                     Elevate (7)   1606.000000              4.316442              3       1610.316442
+                Rat Cage Records   1604.500000              4.318387              2       1608.818387
+                             ARK   1576.000000              4.453636              1       1580.453636
+                  Daft Life Ltd.   1563.000000              4.680000              2       1567.680000
+                           OFFFM   1534.500000              4.545987              2       1539.045987
+                         Wax (4)   1534.454545              4.449457             11       1538.904003
+                 Catflap Records   1494.000000              4.470361              1       1498.470361
+                  Shiver Records   1488.250000              4.356686              4       1492.606686
+          My Love Is Underground   1488.000000              4.576949              3       1492.576949
+                       Driftwood   1473.750000              4.565408              4       1478.315408
+                     Strata-East   1467.000000              4.464607              1       1471.464607
+               Effective Records   1439.333333              4.025507              6       1443.358841
+                           Earth   1430.000000              4.592042              1       1434.592042
+             All Possible Worlds   1429.000000              4.671955              1       1433.671955
+             Utopia Records (15)   1404.000000              4.544490              1       1408.544490
+          Another Planet Records   1377.000000              4.515294              1       1381.515294
+             Fourth Wave Records   1377.000000              4.355229              1       1381.355229
+                     Sei Es Drum   1375.857143              4.506754              7       1380.363897
+                      Metal Face   1367.000000              4.411429              1       1371.411429
+                        Faciendo   1366.000000              4.450808              2       1370.450808
+               Never Ending Trax   1336.000000              4.532578              1       1340.532578
+     Elektronik Outboarding Cast   1336.000000              4.532578              1       1340.532578
+                       Crown (3)   1334.000000              4.285263              1       1338.285263
+                   Press Records   1331.000000              4.460972              2       1335.460972
+                  99 Records (2)   1308.000000              4.394043              1       1312.394043
+                Softcore Records   1306.000000              4.405459              2       1310.405459
+                     Darknet (2)   1303.000000              4.672210              1       1307.672210
+                     Picnolypsis   1291.000000              3.773968              1       1294.773968
+                          Masque   1286.000000              4.111250              1       1290.111250
+                     Welt-Rekord   1281.000000              4.361741              3       1285.361741
+                     500 ReKorDs   1267.000000              4.391974              1       1271.391974
+                       Primitive   1261.000000              4.219629              5       1265.219629
+              Marina Records (2)   1243.000000              4.452581              2       1247.452581
+                     Dirty Dance   1241.000000              4.503521              1       1245.503521
+                 Sonovox Records   1239.000000              4.192385              1       1243.192385
+            Philly Blunt Records   1233.000000              4.462222              1       1237.462222
+                   Tango & Ratty   1232.000000              4.551026              1       1236.551026
+                 Vinyl Collector   1218.500000              4.395055              2       1222.895055
+               Forged Recordings   1218.000000              3.846154              1       1221.846154
+            Hard Sync Recordings   1195.500000              4.387872              2       1199.887872
+                      S.C.O.P.A.   1184.000000              4.390117              2       1188.390117
+          Invisible Records (11)   1184.000000              4.390117              2       1188.390117
+                            1972   1183.000000              4.440734              1       1187.440734
+              Deep Space Records   1181.666667              4.293236              3       1185.959903
+                  Luxury Records   1163.500000              3.991803              2       1167.491803
+                       Lusafrica   1159.000000              4.427063              2       1163.427063
+            Gargoyle Records (2)   1154.000000              3.910000              1       1157.910000
+                       Shin'uchū   1142.000000              4.402115              2       1146.402115
+                     Apollo (17)   1132.000000              3.888889              1       1135.888889
+                    Acting Press   1131.000000              4.328814             14       1135.328814
+             Main Street Records   1128.818182              4.282046             11       1133.100228
+                      Tino Corp.   1128.750000              4.255433              4       1133.005433
+           Warehouse Records (2)   1125.000000              4.141585             10       1129.141585
+                     Zef Recordz   1124.250000              4.330965              4       1128.580965
+                    A Band Apart   1115.000000              4.460455              1       1119.460455
+           Lucky Spin Recordings   1114.000000              4.413503              2       1118.413503
+                       eudemonia   1111.000000              4.646165              1       1115.646165
+                Boomtang Records   1105.000000              4.201538              1       1109.201538
+                 Power House (3)   1101.500000              4.232902             10       1105.732902
+                             Ayo   1086.000000              4.518788              1       1090.518788
+            Professional Records   1079.000000              4.554615              2       1083.554615
+              Black Jazz Records   1078.500000              4.245342              2       1082.745342
+                  Bassex Records   1074.800000              3.990524             10       1078.790524
+                     Synthetique   1070.800000              3.862737              5       1074.662737
+                Decisive Records   1068.000000              4.428629              5       1072.428629
+                   Blast Records   1067.000000              4.262577              3       1071.262577
+                   Invader Music   1057.000000              3.931304              1       1060.931304
+               Oni Ayhun Records   1056.000000              4.444057              4       1060.444057
+              Groovetech Records   1049.000000              4.545202              1       1053.545202
+                  Sacred Summits   1044.000000              4.356559              1       1048.356559
+                      Happy Soul   1041.000000              4.504860              1       1045.504860
+                      7th Voyage   1038.666667              3.873967              3       1042.540634
+                Virus Recordings   1033.428571              4.409884              7       1037.838455
+
+Top 100 Best Rated Labels (Average Rating Coefficient per Release):
+                                label_name  average_want  average_rating_coeff  release_count  popularity_score
+                               False Tuned    768.000000              4.781792              1        772.781792
+                            Panama Records    441.000000              4.765531              1        445.765531
+                              Sending Orbs    764.000000              4.734151              1        768.734151
+                          Devolver Digital   1828.000000              4.715258              2       1832.715258
+                            Dennaton Games   1828.000000              4.715258              2       1832.715258
+                             Planet Uterus   2116.000000              4.712941              1       2120.712941
+                             Polar Records   1645.000000              4.712162              1       1649.712162
+                     West Side Records (8)   3026.000000              4.699137              1       3030.699137
+                      Funky Groove Records   4355.000000              4.691472              1       4359.691472
+                                 The Brane   2223.000000              4.681778              1       2227.681778
+                            Daft Life Ltd.   1563.000000              4.680000              2       1567.680000
+                              The Phantasy    906.500000              4.679844              2        911.179844
+                               Darknet (2)   1303.000000              4.672210              1       1307.672210
+                       All Possible Worlds   1429.000000              4.671955              1       1433.671955
+Not On Label (Brainwaltzera Self-released)    576.000000              4.670204              1        580.670204
+           Love Peace And Unity Recordings   1714.000000              4.660351              1       1718.660351
+                                 Forum (7)   1781.800000              4.657073              5       1786.457073
+                                 eudemonia   1111.000000              4.646165              1       1115.646165
+                               Celebration    978.000000              4.645152              1        982.645152
+                              Symple Sound   1636.000000              4.644778              1       1640.644778
+                                       OCP    818.000000              4.643301              1        822.643301
+  The Point Of Departure Recording Company    237.000000              4.638940              2        241.638940
+             Not On Label (Massive Attack)    472.000000              4.638305              1        476.638305
+                                Bleech (2)    537.000000              4.636162              1        541.636162
+                         Just Another Beat    422.000000              4.628739              1        426.628739
+                         Buzz Records (20)    784.000000              4.623465              1        788.623465
+                                    Artwax    207.000000              4.622069              1        211.622069
+                      Forgotten Future (2)    629.400000              4.621860              5        634.021860
+                           Classic Records    393.000000              4.617397              1        397.617397
+                      Dance Master Records    120.000000              4.611000              1        124.611000
+                                     Prego    492.000000              4.610278              1        496.610278
+                         Urban House Traxx    361.000000              4.608180              1        365.608180
+                                      VEXT    777.000000              4.607371              1        781.607371
+                      Blue Concept Records    867.000000              4.602857              1        871.602857
+                  Nothing But Nice Records   1015.000000              4.602000              1       1019.602000
+                            Scion Versions    697.125000              4.599699              8        701.724699
+                                 Intrusion    350.166667              4.599219              6        354.765885
+                     Not On Label (Kariya)    439.000000              4.598367              1        443.598367
+                           Bigshot Records   1944.000000              4.595578              1       1948.595578
+                           Way Out Records    547.000000              4.593962              1        551.593962
+                                     Earth   1430.000000              4.592042              1       1434.592042
+                           Gherkin Records    504.000000              4.591519              1        508.591519
+                                  Galaxiid    288.000000              4.590000              1        292.590000
+                                  ruin (2)    303.000000              4.589350              1        307.589350
+                    Not On Label (Tikiman)    428.000000              4.588696              1        432.588696
+                  Source Direct Recordings    656.000000              4.585135              1        660.585135
+                        Bridge Records (2)    386.000000              4.584000              1        390.584000
+                      Courage Holdings Inc    314.000000              4.583636              1        318.583636
+                                  Skintone    375.000000              4.582418              1        379.582418
+                     2 Bit Crew Recordings    510.000000              4.577851              1        514.577851
+                         Code Blue Records   1694.000000              4.577333              1       1698.577333
+                    My Love Is Underground   1488.000000              4.576949              3       1492.576949
+                       Blue Attack Records    823.000000              4.576609              2        827.576609
+                            Empire Records    745.000000              4.576296              1        749.576296
+                      Open Mind Recordings    443.000000              4.572728              3        447.572728
+                          Ellipsis Records    266.000000              4.571429              2        270.571429
+                              Isle Of Jura    860.000000              4.569588              1        864.569588
+                                     REK'D    708.000000              4.567778              1        712.567778
+                   Surveillance Recordings    735.000000              4.566303              1        739.566303
+                                 Driftwood   1473.750000              4.565408              4       1478.315408
+                      Corrosive Recordings    570.000000              4.565045              1        574.565045
+                Not On Label (Snow Patrol)    156.000000              4.564241              1        160.564241
+                              Gong Records    379.000000              4.559252              1        383.559252
+                              Downtown 161   2167.000000              4.559211              1       2171.559211
+                         Signature Records    256.500000              4.558903              2        261.058903
+                           Thunder Records    694.000000              4.558611              1        698.558611
+                                Zodiac Wax    117.000000              4.558421              1        121.558421
+                              House Of Dad    552.000000              4.557143              1        556.557143
+                                    mutism    549.000000              4.555529              2        553.555529
+                                       Leg    751.000000              4.555464              1        755.555464
+                      Professional Records   1079.000000              4.554615              2       1083.554615
+                                    Sunklo    575.000000              4.552602              1        579.552602
+                             Tango & Ratty   1232.000000              4.551026              1       1236.551026
+                        Black Rain Records    978.000000              4.549558              1        982.549558
+                                 4EVR 4WRD    467.000000              4.548358              1        471.548358
+                                  The Plan    386.000000              4.547983              1        390.547983
+                          Team Records (2)    159.000000              4.547611              1        163.547611
+                              Street Beats    727.000000              4.546263              1        731.546263
+                                     OFFFM   1534.500000              4.545987              2       1539.045987
+                      Not On Label (Curve)    320.000000              4.545556              1        324.545556
+                        Groovetech Records   1049.000000              4.545202              1       1053.545202
+                       Utopia Records (15)   1404.000000              4.544490              1       1408.544490
+                                H.O.M. (2)    393.000000              4.544104              2        397.544104
+                              Nordic Flora    363.000000              4.544000              1        367.544000
+                           BO'N'DA Records    257.000000              4.543824              1        261.543824
+                        Generation Records    426.000000              4.541754              1        430.541754
+                       Favorite Recordings    473.500000              4.537949              2        478.037949
+                           NozL Recordings     44.000000              4.537709              1         48.537709
+                                     Noton    500.000000              4.536410              1        504.536410
+                    Phuture Communications    523.000000              4.534802              1        527.534802
+                           Energy Of Sound    356.000000              4.533409              1        360.533409
+                         Never Ending Trax   1336.000000              4.532578              1       1340.532578
+               Elektronik Outboarding Cast   1336.000000              4.532578              1       1340.532578
+                                    Vivace    187.000000              4.531683              1        191.531683
+                           Merrick Records    611.000000              4.531429              1        615.531429
+                       Deep Transportation    905.000000              4.526178              1        909.526178
+                                  Citinite    948.000000              4.525922              1        952.525922
+               Cologne Underground Records    212.000000              4.525439              1        216.525439
+    Not On Label (DJ Bogdan Self-released)    970.000000              4.524783              1        974.524783
+                        Intastella Records    187.000000              4.523077              1        191.523077
+
+Top 100 Artists by Popularity (Average Want Count per Release):
+                                                                    artist  average_want  release_count
+                                                             Bobby Konders   5341.000000              1
+                                                                 Round Two   5253.000000              1
+                                        Aztec Mystic, The A.K.A DJ Rolando   4615.000000              2
+                                                                Truth (11)   4355.000000              1
+                                   Pépé Bradock & Grand Brûlé's Choir, The   3667.000000              2
+                                                                Apollo Two   3240.000000              1
+                                                       Dungeon Meat / SE62   2967.000000              1
+                                                          Thomas Bangalter   2937.800000              5
+                                                           Choice / Soofle   2926.500000              2
+                                                            Stasis + Nuron   2765.000000              1
+                                                               Syd Barrett   2552.000000              1
+                                                           Avalanches, The   2485.000000              1
+                                                                 Gal Costa   2479.000000              1
+                                                                 Tuss, The   2441.000000              1
+                                                     Electric Company, The   2433.000000              1
+                                                           WK7 / Head High   2284.500000              2
+                                                                    Burzum   2254.000000              1
+                                    Kenix Music Featuring Bobby Youngblood   2220.000000              1
+                                                              Lana Del Rey   2186.000000              1
+                                                         Prince Of Denmark   2171.200000              5
+                                                      Kruder & Dorfmeister   2157.000000              1
+Nathaniel Merriweather Presents Lovage Avec Mike Patton & Jennifer Charles   2155.000000              1
+                                                    Prime Minister Of Doom   2116.000000              1
+                 Afrika Bambaataa & Soulsonic Force Music By Planet Patrol   2108.000000              1
+                                                               Fresh & Low   2101.000000              3
+                                                 Carl Craig & Pépé Bradock   2065.000000              1
+                                                                Funkadelic   2063.166667              6
+                                                             Tracy Chapman   2056.500000              2
+                                                              Deep Contest   2046.000000              1
+                                                           Tactics Of Bass   2011.000000              1
+                                                                 ##### (2)   1993.000000              1
+                                                                     Vista   1972.500000              2
+                                                             Nuron / Fugue   1960.000000              3
+                                                        Two Right Wrongans   1918.000000              1
+                                                          Sensory Elements   1896.000000              1
+                                                                    Globex   1875.000000              2
+                                                           Kenny Dixon Jr.   1853.000000              1
+                                                             Domenico Rosa   1849.000000              1
+                                                                  Grauzone   1828.000000              2
+                                                         Four Tet / Daphni   1826.000000              1
+                                               Braxton Holmes & Mark Grant   1800.000000              1
+                                             Insanlar / Ricardo Villalobos   1781.000000              1
+                                  Alice Coltrane Featuring Pharoah Sanders   1776.000000              1
+                                   Glorious Springtime, Scott Featherstone   1773.000000              1
+                                                      Deep System / Morose   1764.000000              1
+                                                           Point Blank (2)   1756.000000              1
+                                                               Man/ipulate   1743.000000              1
+                                                       LFO Versus F.U.S.E.   1722.000000              1
+                                                               Anthill Mob   1714.000000              1
+                                                      Bluemoon Productions   1694.000000              1
+                                                                    O.H.M.   1689.000000              1
+            Jeanne Folly, J.L. Hennig, VXZ 375, Hector Zazou, Bazooka (11)   1678.000000              1
+                                                               Antonio (2)   1677.000000              2
+                                                          Simulant, Pollon   1664.000000              1
+                                       Ryuichi Sakamoto = Ryuichi Sakamoto   1658.000000              1
+                                       Black Rascals Featuring Cassio Ware   1645.000000              1
+                                                            Le Knight Club   1635.000000              1
+                                                                    CC Not   1624.000000              1
+                                                                 Helen (2)   1616.000000              1
+                                                        MF Doom / MF Grimm   1595.000000              1
+                                                                 Gat Decor   1589.000000              3
+                                             Man Machine Featuring Zen (4)   1588.000000              1
+                                    Mike Banks And DJ Rolando / Octave One   1587.000000              1
+                                                                Jeremy (2)   1587.000000              2
+                                                            Henry Franklin   1587.000000              1
+                                       DJ Rolando A.K.A. Aztec Mystic, The   1568.000000              1
+                                                                   Da Kine   1560.000000              1
+                                                    Baby Ford + Eon / Link   1550.000000              1
+                                                              Bobby Parker   1545.000000              1
+                                                                   Javaroo   1542.000000              1
+                                      Prince Of Dance Music, The, L.B. Bad   1504.000000              1
+                                                                  Coldplay   1498.000000              4
+                                                               DJ Metatron   1494.285714              7
+                                                        Space Is The Place   1494.000000              1
+                                          Stephan Grieder & Persuader, The   1492.000000              1
+                                                                Shiver (5)   1488.250000              4
+                                    Robert Leiner / Source Experience, The   1483.000000              1
+                                                           Mr. & Mrs. Dale   1478.000000              2
+                                                             Charlie Rouse   1467.000000              1
+                                                               Melody, The   1466.000000              4
+                                                            Arthur Russell   1466.000000              1
+                                                                  Wax (19)   1444.333333             12
+                                                  Mike Banks / Deacon, The   1438.000000              1
+                                                              Soul Capsule   1433.153846             13
+                                                               Larry Heard   1422.333333              3
+                                                               Breaker 1 2   1420.000000              2
+                                                                 Hüsker Dü   1419.500000              2
+                                                                Vito Ricci   1408.000000              1
+                                                        Attitudes in Error   1408.000000              1
+                                                                      DKMA   1404.000000              1
+                                                 Convertion / Four Flights   1402.000000              1
+                    Maleem Mahmoud Ghania / Floating Points / James Holden   1402.000000              1
+                                                             Scott Sellars   1395.000000              1
+                                                           Galaxy 2 Galaxy   1392.500000              8
+                                                               Deep System   1388.000000              1
+                                                                  Callisto   1383.500000              2
+                                                                      Jaco   1377.000000              1
+                                             Fozbee & Cooz / Dimension (3)   1377.000000              1
+                                                                    Kenlou   1368.000000              1
+                                                             Mental Mayhem   1367.500000              2
+
+Top 100 Best Rated Artists (Average Rating Coefficient per Release):
+                                                   artist  average_rating_coeff  release_count
+                       Rhythm & Sound w/ Cornell Campbell              4.815725              1
+                                         Simulant, Pollon              4.743942              1
+                                                Tuss, The              4.743750              1
+                                          Kenny Dixon Jr.              4.740000              1
+                               Even Tuell & Midnightopera              4.734493              1
+                                               Virgo Four              4.734066              1
+                                   Prime Minister Of Doom              4.712941              1
+                      Black Rascals Featuring Cassio Ware              4.712162              1
+                                           Morgan Buckley              4.708081              1
+                                           Stasis + Nuron              4.701386              1
+                                  Dominik Eulberg & Essáy              4.697778              1
+Afrika Bambaataa & Soulsonic Force Music By Planet Patrol              4.694854              1
+                                                 Shpongle              4.694278              1
+                          Rhythm & Sound w/ Jennifer Lara              4.692315              1
+                                               Truth (11)              4.691472              1
+                             Paul St. Hilaire & René Löwe              4.683575              2
+                                            Phantasy, The              4.679844              2
+                                            Bobby Konders              4.677917              1
+                                            Brock Van Wey              4.675652              1
+                                        Prince Of Denmark              4.674083              5
+                                                Round Two              4.672947              1
+                                   Baby Ford + Eon / Link              4.670677              1
+                                                 Callisto              4.667111              2
+                                               Apollo Two              4.666135              1
+                      DJ Rolando A.K.A. Aztec Mystic, The              4.664316              1
+                                        Sandwell District              4.663025              3
+                                            Curtis Harman              4.660633              1
+                                              Anthill Mob              4.660351              1
+                            Insanlar / Ricardo Villalobos              4.658128              1
+                                    Omar-S And O B Ignitt              4.654783              1
+                 Alice Coltrane Featuring Pharoah Sanders              4.653020              1
+                                                    Faust              4.652781              1
+                                                    Elias              4.651240              1
+                                                   Kenlou              4.651079              1
+                                              Jungle Wonz              4.650022              1
+                                             Lana Del Rey              4.645833              1
+                                              Gino Soccio              4.645152              1
+                                                 Koga (2)              4.643301              1
+                                           Ex-Terrestrial              4.641708              3
+                                   Matthew Larkin Cassell              4.638214              1
+                                Carl Craig & Pépé Bradock              4.637252              1
+                                     SP 23 / Unit Moebius              4.636429              1
+                                   Levon Vincent / Jus-Ed              4.635181              1
+                            Intrusion w/ Paul St. Hilaire              4.634868              1
+                                                  Seafoam              4.633226              1
+                  Chris "The Glove" Taylor & David Storrs              4.633226              1
+                                                      Sem              4.633131              1
+          Future Sound Of London, The Present Mental Cube              4.632791              1
+                                             Psyche \ BFC              4.629419              1
+                                                Anyma (5)              4.629118              1
+                                                Artifacts              4.626407              1
+                                           Arthur Russell              4.624749              1
+                       DJ Rolando A.K.A Aztec Mystic, The              4.624496              1
+                              DeepChord Present Echospace              4.622778              2
+                                          Beaver Sheppard              4.620370              1
+                                           Jagdstaffel 66              4.619524              1
+                                          Linkwood Family              4.619510              2
+                                              Julien Neto              4.615385              1
+                       Steve O'Sullivan And Mike Schommer              4.615376              1
+                                   Primitive Painter, The              4.614545              1
+                                               Jeremy (2)              4.614124              2
+                                                 Monolink              4.613390              1
+                                                Gary Rich              4.612723              1
+                                 DJ Rum vs. Struction (2)              4.611824              1
+                                         Night People (2)              4.611000              1
+                                               Dissection              4.610836              2
+                             Wall (2), The, Stallion, The              4.610278              1
+                                                     VÚAP              4.609628              1
+                                 Round Five Feat. Tikiman              4.609139              1
+                                            Skratchy Seal              4.608938              1
+                                        C & M Productions              4.608180              1
+                       SVN (2) & AU (2) Feat. Paleo Logos              4.607724              1
+                                                    Makai              4.606981              1
+                               Yaleesa Hall x Malin Genie              4.605205              1
+                                Kenny Larkin Presents Pod              4.604564              1
+                     Shed / Don Williams / Sven Weisemann              4.604318              1
+                                               Dinosaur L              4.603784              1
+                             De Lite Featuring Osca Child              4.602993              1
+                                                    Gramm              4.602992              1
+                                     Concept Of Alps, The              4.602857              1
+                                            Stefano Valli              4.602399              1
+                                         James Andrew (4)              4.602000              1
+     Kenji Hino, Yumiko Ohno, Gerald Mitchell, Jeff Mills              4.601954              1
+                                             Oleg Buyanov              4.601905              1
+                                     Richie Rich / Kariya              4.598367              1
+                                                    Comic              4.598354              1
+                             DeepChord Presents Echospace              4.597882              9
+                           Crystal Distortion / Jeff SP23              4.597704              1
+                                                  Cymande              4.597462              1
+                  Junior Tucker / Compass Point All Stars              4.597462              1
+                              Aquarium (8) / 外神田deepspace              4.597377              1
+                                         Mole People, The              4.596923              1
+                             Calimex Mental Implant Corp.              4.595309              1
+                                                Diviacchi              4.595235              1
+                                                   Mr. YT              4.594964              3
+                                                    Hunee              4.594610              2
+                                       Solär Sound System              4.592342              1
+                                           Sanasol vs Ozy              4.591170              1
+                                     Sasha & John Digweed              4.589551              2
+                                                  Air (2)              4.587451              1
+
+Top 20 Countries by Number of Releases:
+country
+Germany        47287
+UK             46142
+US             24583
+Netherlands    12658
+France         11796
+Italy           9978
+Belgium         7943
+Spain           7038
+Sweden          4455
+                3708
+Europe          2774
+Canada          2675
+Unknown         2367
+Japan           2227
+Switzerland     1826
+Australia       1530
+Denmark         1152
+Austria          984
+Russia           823
+UK & Europe      786
+
+Top 10 Formats:
+format
+Vinyl              204042
+12"                129540
+33 ⅓ RPM            48883
+45 RPM              30625
+EP                  29778
+White Label         21729
+Promo               13359
+Limited Edition      8899
+LP                   6813
+Album                5421
+
+Key Correlations:
+                    average_rating  rating_count      have      want  rating_coefficient  demand_coefficient  gem_value  num_for_sale  lowest_price  num_tracks  total_duration_min
+average_rating            1.000000      0.184481  0.146843  0.194480            0.567641           -0.011647   0.025139      0.039330      0.088939    0.068720            0.055204
+rating_count              0.184481      1.000000  0.877917  0.791607            0.515750           -0.090529  -0.064335      0.300113      0.055778    0.043624            0.092344
+have                      0.146843      0.877917  1.000000  0.630034            0.405881           -0.117579  -0.102828      0.327633      0.015029    0.074916            0.101895
+want                      0.194480      0.791607  0.630034  1.000000            0.504126            0.136336   0.182482      0.179211      0.180115    0.038199            0.055330
+rating_coefficient        0.567641      0.515750  0.405881  0.504126            1.000000           -0.096282  -0.028688      0.126966      0.126861    0.064745            0.074468
+demand_coefficient       -0.011647     -0.090529 -0.117579  0.136336           -0.096282            1.000000   0.991570     -0.080774      0.118372   -0.010655           -0.039948
+gem_value                 0.025139     -0.064335 -0.102828  0.182482           -0.028688            0.991570   1.000000     -0.075191      0.138048   -0.007997           -0.036345
+num_for_sale              0.039330      0.300113  0.327633  0.179211            0.126966           -0.080774  -0.075191      1.000000     -0.051936    0.019471            0.067701
+lowest_price              0.088939      0.055778  0.015029  0.180115            0.126861            0.118372   0.138048     -0.051936      1.000000    0.109108            0.064174
+num_tracks                0.068720      0.043624  0.074916  0.038199            0.064745           -0.010655  -0.007997      0.019471      0.109108    1.000000            0.530591
+total_duration_min        0.055204      0.092344  0.101895  0.055330            0.074468           -0.039948  -0.036345      0.067701      0.064174    0.530591            1.000000
+
