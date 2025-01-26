@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Discogs Releases</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #F1F1F1;
+        font-family: Inter, "Segoe UI", sans-serif;
+        color: #414651;
+      }
+
+      .Desktop {
+        position: relative;
+        min-height: 100vh;
+        background: #F1F1F1;
+      }
+
+      .MainContainer {
+        margin: 0 auto;
+        max-width: 1400px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .FilterContainer {
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px;
+        flex-wrap: wrap;
+      }
+
+      .filter-group {
+        position: relative;
+        flex: 1;
+        min-width: 150px;
+      }
+      .filter-label {
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 4px;
+        color: #414651;
+      }
+      .filter-input,
+      .filter-select {
+        width: 100%;
+        background: #fff;
+        box-shadow: 0px 1px 2px rgba(10, 12.67, 18, 0.05);
+        border: 1px solid #D5D7DA;
+        border-radius: 8px;
+        font-size: 12px;
+        color: #717680;
+        padding: 8px 10px;
+      }
+      .filter-input::placeholder {
+        color: #717680;
+      }
+
+      .filter-button {
+        flex: 1;
+        min-width: 150px;
+        align-self: flex-end;
+        height: 40px;
+      }
+
+      .table-container {
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      thead th {
+        background: #414651 !important;
+        color: #ffffff !important;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      th {
+        position: relative;
+        white-space: nowrap;
+      }
+      .resizer {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 5px;
+        cursor: col-resize;
+        user-select: none;
+        height: 100%;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid #D7D7D7;
+      }
+      tbody td {
+        vertical-align: middle;
+        font-size: 12px;
+        padding: 16px;
+      }
+
+      .sort-indicator {
+        margin-left: 6px;
+      }
+
+      .badge-genre,
+      .badge-style {
+        border-radius: 16px;
+        padding: 2px 8px;
+        font-size: 12px;
+        display: inline-block;
+        white-space: nowrap;
+        margin: 4px 4px 0 0; /* Adds both horizontal and slight vertical gap */
+      }
+      .badge-genre {
+        background: #8F89E5;
+        color: #fff;
+      }
+      .badge-style {
+        background: #F4F3FF;
+        color: #5925DC;
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 2rem 0;
+        color: #718096;
+      }
+      .no-results i {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .copy-btn {
+        border: none;
+        background: none;
+        padding: 0;
+        cursor: pointer;
+        color: #3182ce;
+        margin-left: 0.5rem;
+        font-size: 1rem;
+      }
+      .copy-btn:hover {
+        color: #2b6cb0;
+      }
+
+      tbody tr:hover {
+        background-color: #f7f7f7;
+      }
+
+      .resizing {
+        user-select: none;
+      }
+
+      .pagination {
+        justify-content: center;
+        margin-top: 16px;
+      }
+      .page-item.active .page-link {
+        background-color: #414651 !important;
+        border-color: #414651 !important;
+      }
+
+      .header-title {
+        font-size: 29px;
+        font-weight: 400;
+        line-height: 1.2;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="Desktop">
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1a202c;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <i class="bi bi-disc"></i> Discogs Vinyl Techno Releases 1975-2025
+          </a>
+        </div>
+      </nav>
+
+      <div class="MainContainer container-fluid">
+        <h1 class="header-title mb-4">
+          Vinyl Techno Releases (1975-2025)
+        </h1>
+
+        <!-- Filter form -->
+        <form id="filter-form" class="FilterContainer">
+          <!-- Genre -->
+          <div class="filter-group">
+            <label for="genre" class="filter-label">Genre</label>
+            <select
+              id="genre"
+              name="genre"
+              class="filter-select"
+              aria-label="Filter by Genre"
+            >
+              <option value="">All Genres</option>
+            </select>
+          </div>
+
+          <!-- Style -->
+          <div class="filter-group">
+            <label for="style" class="filter-label">Style</label>
+            <select
+              id="style"
+              name="style"
+              class="filter-select"
+              aria-label="Filter by Style"
+            >
+              <option value="">All Styles</option>
+            </select>
+          </div>
+
+          <!-- Year range (single input e.g. "1995-2000") -->
+          <div class="filter-group">
+            <label for="year_range" class="filter-label">Year range</label>
+            <input
+              type="text"
+              id="year_range"
+              name="year_range"
+              class="filter-input"
+              placeholder="e.g. 2010-2015"
+            />
+          </div>
+
+          <!-- Rating range (like the year range) -->
+          <div class="filter-group">
+            <label for="rating_range" class="filter-label">Rating range</label>
+            <input
+              type="text"
+              id="rating_range"
+              name="rating_range"
+              class="filter-input"
+              placeholder="e.g. 3-5"
+            />
+          </div>
+
+          <!-- Price range (like the year range) -->
+          <div class="filter-group">
+            <label for="price_range" class="filter-label">Price range</label>
+            <input
+              type="text"
+              id="price_range"
+              name="price_range"
+              class="filter-input"
+              placeholder="e.g. 10-25"
+            />
+          </div>
+
+          <!-- Search query -->
+          <div class="filter-group">
+            <label for="search_query" class="filter-label">Search</label>
+            <input
+              type="text"
+              id="search_query"
+              name="search_query"
+              class="filter-input"
+              placeholder="Title / Label"
+              aria-label="Search by Title or Label"
+            />
+          </div>
+
+          <!-- Filter button -->
+          <div class="filter-button">
+            <button type="submit" class="btn btn-primary w-100 h-100">
+              <i class="bi bi-funnel-fill"></i> Filter
+            </button>
+          </div>
+        </form>
+
+        <!-- Results Count -->
+        <div id="results-count" class="mb-2 fw-semibold"></div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table class="table table-hover table-bordered mb-0" role="table">
+            <thead>
+              <tr>
+                <th scope="col" data-column="Title" data-sort="Title" style="min-width: 160px;">
+                  Title
+                  <div class="resizer"></div>
+                </th>
+                <th scope="col" data-column="Label" data-sort="Label" style="min-width: 120px;">
+                  Label
+                  <div class="resizer"></div>
+                </th>
+                <th scope="col" data-column="Year" data-sort="Year" style="width: 70px;" class="text-center">
+                  Year
+                  <div class="resizer"></div>
+                </th>
+                <th scope="col" data-column="Genre / Style" data-sort="Genre / Style" style="min-width: 150px;">
+                  Genre / Style
+                  <div class="resizer"></div>
+                </th>
+                <th
+                  scope="col"
+                  class="text-center"
+                  data-sort="average_rating"
+                  data-column="User Rating"
+                  title="Click to sort. Cycles between: Highest Avg, Bayesian Average, Worst Rated."
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-delay='{"show":1000, "hide":100}'
+                  style="width: 140px;"
+                >
+                  User Rating
+                  <div class="resizer"></div>
+                </th>
+                <th
+                  scope="col"
+                  class="text-center"
+                  data-sort="demand_coeff"
+                  data-column="Rarity"
+                  title="Click to sort by Rarity (want/have ratio)."
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-delay='{"show":1000, "hide":100}'
+                  style="width: 90px;"
+                >
+                  Rarity
+                  <div class="resizer"></div>
+                </th>
+                <th
+                  scope="col"
+                  class="text-center"
+                  data-sort="gem_value"
+                  data-column="Gem ⟡"
+                  title="Click to sort by Gem (combines rating & rarity)."
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-delay='{"show":1000, "hide":100}'
+                  style="width: 90px;"
+                >
+                  Gem⟡
+                  <div class="resizer"></div>
+                </th>
+                <th
+                  scope="col"
+                  class="text-center"
+                  style="width: 70px;"
+                  data-sort="have"
+                  data-column="Have"
+                >
+                  Have
+                  <div class="resizer"></div>
+                </th>
+                <th
+                  scope="col"
+                  class="text-center"
+                  style="width: 70px;"
+                  data-sort="want"
+                  data-column="Want"
+                >
+                  Want
+                  <div class="resizer"></div>
+                </th>
+                <th
+                  scope="col"
+                  class="text-center"
+                  style="width: 80px;"
+                  data-sort="lowest_price"
+                  data-column="Price"
+                >
+                  Price
+                  <div class="resizer"></div>
+                </th>
+                <th
+                  scope="col"
+                  class="text-center"
+                  style="width: 220px;"
+                  data-column="Preview"
+                >
+                  Preview
+                  <div class="resizer"></div>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="releases-table-body">
+              <!-- Rows dynamically inserted via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <nav class="mt-4" aria-label="Page navigation">
+          <ul class="pagination" id="pagination"></ul>
+        </nav>
+      </div>
+    </div>
+
+    <footer class="text-center py-3">
+      <small>&copy; 2025 - Jannik Aßfalg</small>
+    </footer>
+
+    <!-- Bootstrap JS (with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Example JSON data -->
+    <script>
+      /* You can replace this with actual data, or extend it as needed */
+      const releasesData = [
+        {
+          "id": 1,
+          "title": "Deepchord present Echospace - Silent World",
+          "label": "echospace",
+          "year": "2022",
+          "genre": "Electronic",
+          "style": "Breakbeat, Techno, Deep Techno",
+          "average_rating": 4.5,
+          "rating_count": 240,
+          "demand_coeff": 1.2,
+          "gem_value": 3.14,
+          "have": 150,
+          "want": 180,
+          "lowest_price": 20.50,
+          "link": "https://www.discogs.com/",
+          "youtube_links": "https://www.youtube.com/watch?v=96XKde8YHk8"
+        },
+        {
+          "id": 2,
+          "title": "Example Release 2",
+          "label": "Example Label",
+          "year": "2018",
+          "genre": "Electronic, Rock",
+          "style": "Techno, Ambient",
+          "average_rating": 3.2,
+          "rating_count": 50,
+          "demand_coeff": 0.8,
+          "gem_value": 1.05,
+          "have": 120,
+          "want": 80,
+          "lowest_price": 12.00,
+          "link": "https://www.discogs.com/",
+          "youtube_links": ""
+        }
+      ];
+    </script>
+
+    <!-- Main JS: Filtering, Sorting, Pagination, Resizing -->
+    <script>
+      let filteredData = [];
+      let currentPage = 1;
+      let pageSize = 10;
+      let totalPages = 1;
+
+      let genres = {};
+      let styles = {};
+      let sortConfig = {
+        key: "average_rating",
+        order: "desc",
+        userRatingSortMode: 1, // 1: Bayesian by default
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initializeFilters();
+        applyFilters();
+        applySavedColumnWidths();
+        makeTableResizable();
+        initTooltips();
+      });
+
+      function initTooltips() {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach((tooltipTriggerEl) => {
+          const existingTooltip = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+          if (existingTooltip) {
+            existingTooltip.dispose();
+          }
+          new bootstrap.Tooltip(tooltipTriggerEl, {
+            container: 'body',
+            trigger: 'hover',
+            boundary: 'viewport',
+            delay: { show: 500, hide: 100 }
+          });
+        });
+      }
+
+      function initializeFilters() {
+        // Collect genres and styles
+        releasesData.forEach((release) => {
+          if (release.genre) {
+            release.genre.split(",").forEach((g) => {
+              g = g.trim();
+              if (g) genres[g] = (genres[g] || 0) + 1;
+            });
+          }
+          if (release.style) {
+            release.style.split(",").forEach((s) => {
+              s = s.trim();
+              if (s) styles[s] = (styles[s] || 0) + 1;
+            });
+          }
+        });
+
+        // Sort by frequency (descending count), then by name ascending if you want a tiebreaker
+        const sortedGenres = Object.entries(genres).sort((a, b) => {
+          if (b[1] === a[1]) {
+            // tie-break by alphabetical
+            return a[0].localeCompare(b[0]);
+          }
+          return b[1] - a[1];
+        });
+
+        const sortedStyles = Object.entries(styles).sort((a, b) => {
+          if (b[1] === a[1]) {
+            return a[0].localeCompare(b[0]);
+          }
+          return b[1] - a[1];
+        });
+
+        // Populate genre dropdown
+        const genreSelect = document.getElementById("genre");
+        sortedGenres.forEach(([genre, count]) => {
+          const option = document.createElement("option");
+          option.value = genre;
+          option.textContent = `${genre} (${count})`;
+          genreSelect.appendChild(option);
+        });
+
+        // Populate style dropdown
+        const styleSelect = document.getElementById("style");
+        sortedStyles.forEach(([style, count]) => {
+          const option = document.createElement("option");
+          option.value = style;
+          option.textContent = `${style} (${count})`;
+          styleSelect.appendChild(option);
+        });
+      }
+
+      document.getElementById("filter-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        applyFilters();
+      });
+
+      // Parse "year_range" as in the original code
+      function parseYearRange() {
+        const yr = document.getElementById("year_range").value.trim();
+        if (!yr) return { min: -Infinity, max: Infinity };
+        // e.g. "2010-2015"
+        const match = yr.match(/^(\d{4})\s*-\s*(\d{4})$/);
+        if (match) {
+          return {
+            min: parseInt(match[1], 10),
+            max: parseInt(match[2], 10)
+          };
+        } else {
+          const single = parseInt(yr, 10);
+          if (Number.isInteger(single)) {
+            return { min: single, max: single };
+          }
+          return { min: -Infinity, max: Infinity };
+        }
+      }
+
+      // Generic parse for rating or price range (e.g. "3-5", "10-20")
+      function parseRangeInput(rangeStr) {
+        if (!rangeStr) return { min: -Infinity, max: Infinity };
+        // Matches "number - number", allowing decimals
+        const match = rangeStr.match(/^(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)$/);
+        if (match) {
+          return {
+            min: parseFloat(match[1]),
+            max: parseFloat(match[2])
+          };
+        } else {
+          // Single number means min==max
+          const single = parseFloat(rangeStr);
+          if (!isNaN(single)) {
+            return { min: single, max: single };
+          }
+          return { min: -Infinity, max: Infinity };
+        }
+      }
+
+      function applyFilters() {
+        // Parse year range
+        const { min: yearMin, max: yearMax } = parseYearRange();
+
+        // Parse rating range
+        const ratingRange = parseRangeInput(
+          document.getElementById("rating_range").value.trim()
+        );
+
+        // Parse price range
+        const priceRange = parseRangeInput(
+          document.getElementById("price_range").value.trim()
+        );
+
+        // Search, genre, style
+        const searchQuery = document
+          .getElementById("search_query")
+          .value.trim()
+          .toLowerCase();
+        const selectedGenre = document.getElementById("genre").value;
+        const selectedStyle = document.getElementById("style").value;
+
+        filteredData = releasesData.filter((release) => {
+          // Check Title/Label
+          const releaseLabel = release.label ? release.label.toLowerCase() : "";
+          const releaseTitle = release.title ? release.title.toLowerCase() : "";
+          const matchesSearch =
+            !searchQuery ||
+            releaseTitle.includes(searchQuery) ||
+            releaseLabel.includes(searchQuery);
+
+          // Genre
+          const matchesGenre =
+            !selectedGenre ||
+            (release.genre &&
+             release.genre.split(",").map(g => g.trim()).includes(selectedGenre));
+
+          // Style
+          const matchesStyle =
+            !selectedStyle ||
+            (release.style &&
+             release.style.split(",").map(s => s.trim()).includes(selectedStyle));
+
+          // Year
+          const releaseYear = parseInt(release.year) || 0;
+          const matchesYear = releaseYear >= yearMin && releaseYear <= yearMax;
+
+          // Rating
+          const avgRating = parseFloat(release.average_rating) || 0;
+          const matchesRatingRange =
+            avgRating >= ratingRange.min && avgRating <= ratingRange.max;
+
+          // Price
+          const priceVal = parseFloat(release.lowest_price) || 0;
+          const matchesPriceRange =
+            priceVal >= priceRange.min && priceVal <= priceRange.max;
+
+          return (
+            matchesSearch &&
+            matchesGenre &&
+            matchesStyle &&
+            matchesYear &&
+            matchesRatingRange &&
+            matchesPriceRange
+          );
+        });
+
+        sortData();
+        currentPage = 1;
+        totalPages = Math.ceil(filteredData.length / pageSize) || 1;
+        renderTable();
+        renderPagination();
+      }
+
+      // Sorting
+      function sortData() {
+        const { key, order, userRatingSortMode } = sortConfig;
+        if (key === "average_rating") {
+          // Special logic for rating sort modes
+          if (userRatingSortMode === 0) {
+            // Highest average + most votes
+            filteredData.sort((a, b) => {
+              const aRating = parseFloat(a.average_rating) || 0;
+              const bRating = parseFloat(b.average_rating) || 0;
+              const aVotes = parseInt(a.rating_count) || 0;
+              const bVotes = parseInt(b.rating_count) || 0;
+              if (bRating !== aRating) return bRating - aRating;
+              return bVotes - aVotes;
+            });
+          } else if (userRatingSortMode === 1) {
+            // Bayesian
+            filteredData.sort((a, b) => {
+              return bayesian(b) - bayesian(a);
+            });
+          } else {
+            // Worst rated
+            filteredData.sort((a, b) => {
+              const aRating = parseFloat(a.average_rating) || 0;
+              const bRating = parseFloat(b.average_rating) || 0;
+              const aVotes = parseInt(a.rating_count) || 0;
+              const bVotes = parseInt(b.rating_count) || 0;
+              if (aRating !== bRating) return aRating - bRating;
+              return bVotes - aVotes;
+            });
+          }
+        } else {
+          // Generic sort
+          filteredData.sort((a, b) => {
+            let aVal, bVal;
+            if (key === "Title") {
+              aVal = (a.title || "").toLowerCase();
+              bVal = (b.title || "").toLowerCase();
+            } else if (key === "Label") {
+              aVal = (a.label || "").toLowerCase();
+              bVal = (b.label || "").toLowerCase();
+            } else if (key === "Year") {
+              aVal = parseInt(a.year) || 0;
+              bVal = parseInt(b.year) || 0;
+            } else if (key === "Genre / Style") {
+              aVal = ((a.genre || "") + (a.style || "")).toLowerCase();
+              bVal = ((b.genre || "") + (b.style || "")).toLowerCase();
+            } else {
+              aVal = parseFloat(a[key]) || 0;
+              bVal = parseFloat(b[key]) || 0;
+            }
+
+            if (aVal < bVal) return order === "asc" ? -1 : 1;
+            if (aVal > bVal) return order === "asc" ? 1 : -1;
+            return 0;
+          });
+        }
+      }
+
+      function bayesian(r, m = 3, C = 10) {
+        const R = parseFloat(r.average_rating) || 0;
+        const v = parseInt(r.rating_count) || 0;
+        return (C * m + R * v) / (C + v);
+      }
+
+      function renderTable() {
+        const tbody = document.getElementById("releases-table-body");
+        tbody.innerHTML = "";
+
+        document.getElementById("results-count").textContent =
+          `Showing ${filteredData.length} result(s)`;
+
+        if (filteredData.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="11" class="no-results">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <p>No results found.</p>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
+        const pageData = filteredData.slice(start, end);
+
+        pageData.forEach((release) => {
+          const tr = document.createElement("tr");
+
+          // Title
+          const tdTitle = document.createElement("td");
+          const titleDiv = document.createElement("div");
+          titleDiv.className = "d-flex align-items-center";
+          const titleLink = document.createElement("a");
+          titleLink.href = release.link;
+          titleLink.target = "_blank";
+          titleLink.rel = "noopener noreferrer";
+          titleLink.className = "text-decoration-none text-primary fw-semibold";
+          titleLink.textContent = release.title;
+
+          // Copy button
+          const copyBtn = document.createElement("button");
+          copyBtn.className = "copy-btn";
+          copyBtn.setAttribute("data-title", release.title);
+          copyBtn.title = "Copy Title";
+          copyBtn.innerHTML = '<i class="bi bi-clipboard"></i>';
+
+          titleDiv.appendChild(titleLink);
+          titleDiv.appendChild(copyBtn);
+          tdTitle.appendChild(titleDiv);
+          tr.appendChild(tdTitle);
+
+          // Label
+          const tdLabel = document.createElement("td");
+          tdLabel.textContent = release.label || "Unknown";
+          tr.appendChild(tdLabel);
+
+          // Year
+          const tdYear = document.createElement("td");
+          tdYear.className = "text-center";
+          tdYear.textContent = release.year || "N/A";
+          tr.appendChild(tdYear);
+
+          // Genre / Style
+          const tdGenreStyle = document.createElement("td");
+          const splittedGenre = release.genre
+            ? release.genre.split(",").map(g => g.trim())
+            : [];
+          const splittedStyle = release.style
+            ? release.style.split(",").map(s => s.trim())
+            : [];
+          splittedGenre.forEach(g => {
+            const span = document.createElement("span");
+            span.className = "badge-genre";
+            span.textContent = g;
+            tdGenreStyle.appendChild(span);
+          });
+          splittedStyle.forEach(s => {
+            const span = document.createElement("span");
+            span.className = "badge-style";
+            span.textContent = s;
+            tdGenreStyle.appendChild(span);
+          });
+          tr.appendChild(tdGenreStyle);
+
+          // User Rating
+          const tdRating = document.createElement("td");
+          tdRating.className = "text-center";
+          if (release.average_rating !== undefined && release.rating_count !== undefined) {
+            tdRating.innerHTML = `${generateStars(release.average_rating)} (${release.rating_count})`;
+          } else {
+            tdRating.innerHTML = '<div class="text-muted">No rating</div>';
+          }
+          tr.appendChild(tdRating);
+
+          // Rarity
+          const tdRarity = document.createElement("td");
+          tdRarity.className = "text-center";
+          tdRarity.textContent = release.demand_coeff
+            ? release.demand_coeff.toFixed(2)
+            : "0.00";
+          tr.appendChild(tdRarity);
+
+          // Gem
+          const tdGem = document.createElement("td");
+          tdGem.className = "text-center";
+          tdGem.textContent = release.gem_value
+            ? release.gem_value.toFixed(2)
+            : "0.00";
+          tr.appendChild(tdGem);
+
+          // Have
+          const tdHave = document.createElement("td");
+          tdHave.className = "text-center";
+          tdHave.textContent = release.have || 0;
+          tr.appendChild(tdHave);
+
+          // Want
+          const tdWant = document.createElement("td");
+          tdWant.className = "text-center";
+          tdWant.textContent = release.want || 0;
+          tr.appendChild(tdWant);
+
+          // Price
+          const tdPrice = document.createElement("td");
+          tdPrice.className = "text-center";
+          if (release.lowest_price !== undefined) {
+            tdPrice.textContent = `${release.lowest_price.toFixed(2)}$`;
+          } else {
+            tdPrice.textContent = "N/A";
+          }
+          tr.appendChild(tdPrice);
+
+          // Preview
+          const tdPreview = document.createElement("td");
+          tdPreview.className = "text-center";
+          if (release.youtube_links) {
+            const links = release.youtube_links
+              .split(",")
+              .map(l => l.trim())
+              .filter(l => l);
+            if (links.length > 0) {
+              const yID = extractYouTubeID(links[0]);
+              if (yID) {
+                const iframe = document.createElement("iframe");
+                iframe.className = "table-iframe";
+                iframe.loading = "lazy";
+                iframe.title = "YouTube video player";
+                iframe.setAttribute("aria-label", "YouTube video player");
+                iframe.src = `https://www.youtube.com/embed/${yID}?rel=0&modestbranding=1`;
+                iframe.frameBorder = "0";
+                iframe.allowFullscreen = true;
+                iframe.style.width = "220px";
+                iframe.style.height = "124px";
+                tdPreview.appendChild(iframe);
+              } else {
+                tdPreview.innerHTML = '<div class="text-muted">Invalid YouTube link</div>';
+              }
+            } else {
+              tdPreview.innerHTML = '<div class="text-muted">No YouTube links</div>';
+            }
+          } else {
+            tdPreview.innerHTML = '<div class="text-muted">No YouTube links</div>';
+          }
+          tr.appendChild(tdPreview);
+
+          tbody.appendChild(tr);
+        });
+
+        attachCopyHandlers();
+      }
+
+      function generateStars(avg) {
+        const average = parseFloat(avg) || 0;
+        const fullStars = Math.floor(average);
+        const halfStar = average % 1 >= 0.5 ? 1 : 0;
+        const emptyStars = 5 - fullStars - halfStar;
+        let starsHtml = "";
+        for (let i = 0; i < fullStars; i++) {
+          starsHtml += '<i class="bi bi-star-fill text-warning"></i>';
+        }
+        if (halfStar) {
+          starsHtml += '<i class="bi bi-star-half text-warning"></i>';
+        }
+        for (let i = 0; i < emptyStars; i++) {
+          starsHtml += '<i class="bi bi-star text-warning"></i>';
+        }
+        return starsHtml;
+      }
+
+      function extractYouTubeID(url) {
+        const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^"&?/\s]{11})/;
+        const match = url.match(regex);
+        return match ? match[1] : null;
+      }
+
+      function attachCopyHandlers() {
+        const copyBtns = document.querySelectorAll(".copy-btn");
+        copyBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const text = btn.getAttribute("data-title");
+            if (text) {
+              navigator.clipboard.writeText(text).then(() => {
+                const originalTitle = btn.title;
+                btn.title = "Copied!";
+                const tooltip = new bootstrap.Tooltip(btn, {
+                  container: 'body',
+                  trigger: 'manual'
+                });
+                tooltip.show();
+                setTimeout(() => {
+                  btn.title = originalTitle;
+                  tooltip.hide();
+                  tooltip.dispose();
+                }, 1500);
+              });
+            }
+          });
+        });
+      }
+
+      function renderPagination() {
+        const pag = document.getElementById("pagination");
+        pag.innerHTML = "";
+        totalPages = Math.ceil(filteredData.length / pageSize) || 1;
+        if (totalPages <= 1) return;
+
+        // Prev
+        const prevLi = document.createElement("li");
+        prevLi.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
+        const prevLink = document.createElement("a");
+        prevLink.className = "page-link";
+        prevLink.href = "#";
+        prevLink.innerHTML = `<i class="bi bi-chevron-left"></i> Prev`;
+        prevLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+            renderPagination();
+            window.scrollTo(0, 0);
+          }
+        });
+        prevLi.appendChild(prevLink);
+        pag.appendChild(prevLi);
+
+        // Pages
+        for (let p = 1; p <= totalPages; p++) {
+          if (
+            p === 1 ||
+            p === totalPages ||
+            (p >= currentPage - 2 && p <= currentPage + 2)
+          ) {
+            const pageLi = document.createElement("li");
+            pageLi.className = `page-item ${p === currentPage ? "active" : ""}`;
+            const pageLink = document.createElement("a");
+            pageLink.className = "page-link";
+            pageLink.href = "#";
+            pageLink.textContent = p;
+            pageLink.addEventListener("click", (e) => {
+              e.preventDefault();
+              currentPage = p;
+              renderTable();
+              renderPagination();
+              window.scrollTo(0, 0);
+            });
+            pageLi.appendChild(pageLink);
+            pag.appendChild(pageLi);
+          } else if (p === currentPage - 3 || p === currentPage + 3) {
+            const ellipsisLi = document.createElement("li");
+            ellipsisLi.className = "page-item disabled";
+            const ellipsisSpan = document.createElement("span");
+            ellipsisSpan.className = "page-link";
+            ellipsisSpan.textContent = "...";
+            ellipsisLi.appendChild(ellipsisSpan);
+            pag.appendChild(ellipsisLi);
+          }
+        }
+
+        // Next
+        const nextLi = document.createElement("li");
+        nextLi.className = `page-item ${currentPage === totalPages ? "disabled" : ""}`;
+        const nextLink = document.createElement("a");
+        nextLink.className = "page-link";
+        nextLink.href = "#";
+        nextLink.innerHTML = `Next <i class="bi bi-chevron-right"></i>`;
+        nextLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderTable();
+            renderPagination();
+            window.scrollTo(0, 0);
+          }
+        });
+        nextLi.appendChild(nextLink);
+        pag.appendChild(nextLi);
+      }
+
+      function makeTableResizable() {
+        document.querySelectorAll("th[data-column]").forEach((th) => {
+          const resizer = th.querySelector(".resizer");
+          if (!resizer) return;
+          let startX, startWidth;
+
+          resizer.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            startX = e.pageX;
+            startWidth = th.offsetWidth;
+            document.body.classList.add("resizing");
+
+            const onMouseMove = (e) => {
+              const dx = e.pageX - startX;
+              const newWidth = startWidth + dx;
+              if (newWidth > 50) {
+                th.style.width = newWidth + "px";
+              }
+            };
+            const onMouseUp = () => {
+              document.body.classList.remove("resizing");
+              saveColumnWidths();
+              document.removeEventListener("mousemove", onMouseMove);
+              document.removeEventListener("mouseup", onMouseUp);
+            };
+            document.addEventListener("mousemove", onMouseMove);
+            document.addEventListener("mouseup", onMouseUp);
+          });
+        });
+      }
+
+      function saveColumnWidths() {
+        const widths = {};
+        document.querySelectorAll("th[data-column]").forEach((th) => {
+          const col = th.getAttribute("data-column");
+          widths[col] = th.offsetWidth;
+        });
+        localStorage.setItem("tableColumnWidths", JSON.stringify(widths));
+      }
+
+      function applySavedColumnWidths() {
+        const saved = JSON.parse(localStorage.getItem("tableColumnWidths"));
+        if (saved) {
+          document.querySelectorAll("th[data-column]").forEach((th) => {
+            const col = th.getAttribute("data-column");
+            if (saved[col]) {
+              th.style.width = saved[col] + "px";
+            }
+          });
+        }
+      }
+
+      // Click-to-sort
+      document.querySelectorAll("th[data-sort]").forEach((header) => {
+        header.addEventListener("click", () => {
+          const column = header.getAttribute("data-column");
+          if (column === "User Rating") {
+            // Cycle userRatingSortMode
+            sortConfig.userRatingSortMode = (sortConfig.userRatingSortMode + 1) % 3;
+            if (sortConfig.userRatingSortMode === 0) {
+              sortConfig.key = "average_rating";
+              sortConfig.order = "desc";
+            } else if (sortConfig.userRatingSortMode === 1) {
+              sortConfig.key = "average_rating";
+              sortConfig.order = "desc";
+            } else {
+              sortConfig.key = "average_rating";
+              sortConfig.order = "asc";
+            }
+          } else {
+            const sortKey = header.getAttribute("data-sort");
+            if (sortConfig.key === sortKey) {
+              sortConfig.order = sortConfig.order === "asc" ? "desc" : "asc";
+            } else {
+              sortConfig.key = sortKey;
+              sortConfig.order = "asc";
+            }
+            sortConfig.userRatingSortMode = 0; // reset
+          }
+          sortData();
+          renderTable();
+          renderPagination();
+          updateSortIndicators();
+          initTooltips();
+        });
+      });
+
+      function updateSortIndicators() {
+        document.querySelectorAll("th[data-sort]").forEach((header) => {
+          const col = header.getAttribute("data-column");
+          const sortKey = header.getAttribute("data-sort");
+          const baseText = col;
+          header.innerHTML = baseText; // reset text
+
+          // For "User Rating" we show different icons depending on userRatingSortMode
+          if (col === "User Rating") {
+            if (sortConfig.userRatingSortMode === 0) {
+              header.innerHTML += '<i class="bi bi-arrow-up sort-indicator" title="Highest Avg & Most Votes"></i>';
+            } else if (sortConfig.userRatingSortMode === 1) {
+              header.innerHTML += '<i class="bi bi-bar-chart sort-indicator" title="Bayesian Average"></i>';
+            } else {
+              header.innerHTML += '<i class="bi bi-arrow-down sort-indicator" title="Worst Rated"></i>';
+            }
+          } else if (sortKey === sortConfig.key) {
+            // Generic columns
+            if (sortConfig.order === "asc") {
+              header.innerHTML += '<i class="bi bi-arrow-up sort-indicator"></i>';
+            } else {
+              header.innerHTML += '<i class="bi bi-arrow-down sort-indicator"></i>';
+            }
+          }
+
+          // Re-add the resizer
+          const res = document.createElement("div");
+          res.className = "resizer";
+          header.appendChild(res);
+        });
+      }
+    </script>
+  </body>
+</html>
