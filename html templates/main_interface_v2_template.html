@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>Discogs Releases</title>
+
+    <!-- Google Analytics 4 (GA4) Global Site Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW50KM0VFQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WW50KM0VFQ');
+    </script>
+    <!-- End GA4 -->
+
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -15,10 +27,12 @@
     />
 
     <style>
-      html, body {
+      /* Existing styles remain unchanged */
+      html,
+      body {
         margin: 0;
         padding: 0;
-        background-color: #F1F1F1;
+        background-color: #f1f1f1;
         font-family: Inter, "Segoe UI", sans-serif;
         color: #414651;
       }
@@ -26,7 +40,7 @@
       .Desktop {
         position: relative;
         min-height: 100vh;
-        background: #F1F1F1;
+        background: #f1f1f1;
       }
 
       .MainContainer {
@@ -68,7 +82,7 @@
         width: 100%;
         background: #fff;
         box-shadow: 0px 1px 2px rgba(10, 12.67, 18, 0.05);
-        border: 1px solid #D5D7DA;
+        border: 1px solid #d5d7da;
         border-radius: 8px;
         font-size: 12px;
         color: #717680;
@@ -97,10 +111,14 @@
         color: #ffffff !important;
         font-weight: 700;
         font-size: 14px;
+        cursor: pointer; /* Indicate that headers are clickable */
+        user-select: none;
+        transition: opacity 0.5s ease; /* Transition for grey-out */
       }
       th {
         position: relative;
         white-space: nowrap;
+        transition: opacity 0.5s ease; /* Transition for grey-out */
       }
       .resizer {
         position: absolute;
@@ -113,7 +131,11 @@
       }
 
       tbody tr {
-        border-bottom: 1px solid #D7D7D7;
+        border-bottom: 1px solid #d7d7d7;
+        transition: opacity 0.5s ease; /* Transition for grey-out */
+      }
+      tbody tr.greyed-out {
+        opacity: 0.5;
       }
       tbody td {
         vertical-align: middle;
@@ -135,12 +157,12 @@
         margin: 4px 4px 0 0; /* Adds both horizontal and slight vertical gap */
       }
       .badge-genre {
-        background: #8F89E5;
+        background: #8f89e5;
         color: #fff;
       }
       .badge-style {
-        background: #F4F3FF;
-        color: #5925DC;
+        background: #f4f3ff;
+        color: #5925dc;
       }
 
       .no-results {
@@ -189,6 +211,9 @@
         line-height: 1.2;
         margin: 0;
       }
+
+      /* Grayed-out state for previously interacted releases */
+      /* Transition is already handled on tbody tr */
     </style>
   </head>
   <body>
@@ -202,9 +227,7 @@
       </nav>
 
       <div class="MainContainer container-fluid">
-        <h1 class="header-title mb-4">
-          Vinyl Techno Releases (1975-2025)
-        </h1>
+        <h1 class="header-title mb-4">Vinyl Techno Releases (1975-2025)</h1>
 
         <!-- Filter form -->
         <form id="filter-form" class="FilterContainer">
@@ -417,6 +440,8 @@
 
     <!-- Bootstrap JS (with Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- YouTube Iframe API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <!-- Example JSON data -->
     <script>
@@ -435,7 +460,7 @@
           "gem_value": 3.14,
           "have": 150,
           "want": 180,
-          "lowest_price": 20.50,
+          "lowest_price": 20.5,
           "link": "https://www.discogs.com/",
           "youtube_links": "https://www.youtube.com/watch?v=96XKde8YHk8"
         },
@@ -452,14 +477,14 @@
           "gem_value": 1.05,
           "have": 120,
           "want": 80,
-          "lowest_price": 12.00,
+          "lowest_price": 12.0,
           "link": "https://www.discogs.com/",
           "youtube_links": ""
         }
       ];
     </script>
 
-    <!-- Main JS: Filtering, Sorting, Pagination, Resizing -->
+    <!-- Main JS: Filtering, Sorting, Pagination, Resizing, and "Grey Out" Behavior -->
     <script>
       let filteredData = [];
       let currentPage = 1;
@@ -473,6 +498,15 @@
         order: "desc",
         userRatingSortMode: 1, // 1: Bayesian by default
       };
+
+      // We'll store IDs of releases that have been interacted with (visited, copied, or listened)
+      let interactedReleases = JSON.parse(localStorage.getItem("interactedReleases")) || [];
+
+      // To track if a video has been played and then stopped
+      let playedVideos = {};
+
+      // YouTube players
+      let players = {};
 
       document.addEventListener("DOMContentLoaded", () => {
         initializeFilters();
@@ -553,6 +587,7 @@
       document.getElementById("filter-form").addEventListener("submit", (e) => {
         e.preventDefault();
         applyFilters();
+        trackFilterApplied(); // Track filter and search events
       });
 
       // Parse "year_range" as in the original code
@@ -564,7 +599,7 @@
         if (match) {
           return {
             min: parseInt(match[1], 10),
-            max: parseInt(match[2], 10)
+            max: parseInt(match[2], 10),
           };
         } else {
           const single = parseInt(yr, 10);
@@ -583,7 +618,7 @@
         if (match) {
           return {
             min: parseFloat(match[1]),
-            max: parseFloat(match[2])
+            max: parseFloat(match[2]),
           };
         } else {
           // Single number means min==max
@@ -630,13 +665,13 @@
           const matchesGenre =
             !selectedGenre ||
             (release.genre &&
-             release.genre.split(",").map(g => g.trim()).includes(selectedGenre));
+              release.genre.split(",").map((g) => g.trim()).includes(selectedGenre));
 
           // Style
           const matchesStyle =
             !selectedStyle ||
             (release.style &&
-             release.style.split(",").map(s => s.trim()).includes(selectedStyle));
+              release.style.split(",").map((s) => s.trim()).includes(selectedStyle));
 
           // Year
           const releaseYear = parseInt(release.year) || 0;
@@ -759,6 +794,23 @@
 
         pageData.forEach((release) => {
           const tr = document.createElement("tr");
+          tr.setAttribute("data-id", release.id); // Set data-id for easy access
+
+          // If release is in our 'interactedReleases', grey it out
+          if (interactedReleases.includes(release.id)) {
+            tr.classList.add("greyed-out");
+          }
+
+          // Add event listener for mouseleave to grey out the row if interacted
+          tr.addEventListener("mouseleave", () => {
+            if (
+              playedVideos[release.id] ||
+              interactedReleases.includes(release.id)
+            ) {
+              markAsInteracted(release.id);
+              tr.classList.add("greyed-out");
+            }
+          });
 
           // Title
           const tdTitle = document.createElement("td");
@@ -771,12 +823,50 @@
           titleLink.className = "text-decoration-none text-primary fw-semibold";
           titleLink.textContent = release.title;
 
+          // When user clicks the link, mark as interacted and track event
+          titleLink.addEventListener("click", () => {
+            markAsInteracted(release.id);
+            tr.classList.add("greyed-out");
+            trackReleaseLinkClick(release); // Track release link clicks
+          });
+
           // Copy button
           const copyBtn = document.createElement("button");
           copyBtn.className = "copy-btn";
           copyBtn.setAttribute("data-title", release.title);
           copyBtn.title = "Copy Title";
           copyBtn.innerHTML = '<i class="bi bi-clipboard"></i>';
+
+          // When copy button is clicked, track the event
+          copyBtn.addEventListener("click", () => {
+            const text = copyBtn.getAttribute("data-title");
+            if (text) {
+              navigator.clipboard.writeText(text).then(() => {
+                // Find the release ID based on the row
+                const row = copyBtn.closest("tr");
+                const releaseId = parseInt(row.getAttribute("data-id"), 10);
+                if (releaseId) {
+                  markAsInteracted(releaseId);
+                  row.classList.add("greyed-out");
+                }
+
+                const originalTitle = copyBtn.title;
+                copyBtn.title = "Copied!";
+                const tooltip = new bootstrap.Tooltip(copyBtn, {
+                  container: 'body',
+                  trigger: 'manual'
+                });
+                tooltip.show();
+                setTimeout(() => {
+                  copyBtn.title = originalTitle;
+                  tooltip.hide();
+                  tooltip.dispose();
+                }, 1500);
+
+                trackCopyButtonClick(release); // Track copy button clicks
+              });
+            }
+          });
 
           titleDiv.appendChild(titleLink);
           titleDiv.appendChild(copyBtn);
@@ -797,18 +887,18 @@
           // Genre / Style
           const tdGenreStyle = document.createElement("td");
           const splittedGenre = release.genre
-            ? release.genre.split(",").map(g => g.trim())
+            ? release.genre.split(",").map((g) => g.trim())
             : [];
           const splittedStyle = release.style
-            ? release.style.split(",").map(s => s.trim())
+            ? release.style.split(",").map((s) => s.trim())
             : [];
-          splittedGenre.forEach(g => {
+          splittedGenre.forEach((g) => {
             const span = document.createElement("span");
             span.className = "badge-genre";
             span.textContent = g;
             tdGenreStyle.appendChild(span);
           });
-          splittedStyle.forEach(s => {
+          splittedStyle.forEach((s) => {
             const span = document.createElement("span");
             span.className = "badge-style";
             span.textContent = s;
@@ -819,7 +909,10 @@
           // User Rating
           const tdRating = document.createElement("td");
           tdRating.className = "text-center";
-          if (release.average_rating !== undefined && release.rating_count !== undefined) {
+          if (
+            release.average_rating !== undefined &&
+            release.rating_count !== undefined
+          ) {
             tdRating.innerHTML = `${generateStars(release.average_rating)} (${release.rating_count})`;
           } else {
             tdRating.innerHTML = '<div class="text-muted">No rating</div>';
@@ -870,27 +963,38 @@
           if (release.youtube_links) {
             const links = release.youtube_links
               .split(",")
-              .map(l => l.trim())
-              .filter(l => l);
+              .map((l) => l.trim())
+              .filter((l) => l);
             if (links.length > 0) {
               const yID = extractYouTubeID(links[0]);
               if (yID) {
                 const iframe = document.createElement("iframe");
+                iframe.id = `youtube-player-${release.id}`;
                 iframe.className = "table-iframe";
                 iframe.loading = "lazy";
                 iframe.title = "YouTube video player";
                 iframe.setAttribute("aria-label", "YouTube video player");
-                iframe.src = `https://www.youtube.com/embed/${yID}?rel=0&modestbranding=1`;
+                iframe.src = `https://www.youtube.com/embed/${yID}?enablejsapi=1&rel=0&modestbranding=1`;
                 iframe.frameBorder = "0";
+                iframe.allow =
+                  "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
                 iframe.allowFullscreen = true;
                 iframe.style.width = "220px";
                 iframe.style.height = "124px";
-                tdPreview.appendChild(iframe);
+
+                const iframeContainer = document.createElement("div");
+                iframeContainer.style.position = "relative";
+                iframeContainer.style.display = "inline-block";
+
+                iframeContainer.appendChild(iframe);
+                tdPreview.appendChild(iframeContainer);
               } else {
-                tdPreview.innerHTML = '<div class="text-muted">Invalid YouTube link</div>';
+                tdPreview.innerHTML =
+                  '<div class="text-muted">Invalid YouTube link</div>';
               }
             } else {
-              tdPreview.innerHTML = '<div class="text-muted">No YouTube links</div>';
+              tdPreview.innerHTML =
+                '<div class="text-muted">No YouTube links</div>';
             }
           } else {
             tdPreview.innerHTML = '<div class="text-muted">No YouTube links</div>';
@@ -901,6 +1005,17 @@
         });
 
         attachCopyHandlers();
+        initializeYouTubePlayers();
+      }
+
+      function markAsInteracted(releaseId) {
+        if (!interactedReleases.includes(releaseId)) {
+          interactedReleases.push(releaseId);
+          localStorage.setItem(
+            "interactedReleases",
+            JSON.stringify(interactedReleases)
+          );
+        }
       }
 
       function generateStars(avg) {
@@ -934,6 +1049,14 @@
             const text = btn.getAttribute("data-title");
             if (text) {
               navigator.clipboard.writeText(text).then(() => {
+                // Find the release ID based on the row
+                const row = btn.closest("tr");
+                const releaseId = parseInt(row.getAttribute("data-id"), 10);
+                if (releaseId) {
+                  markAsInteracted(releaseId);
+                  row.classList.add("greyed-out");
+                }
+
                 const originalTitle = btn.title;
                 btn.title = "Copied!";
                 const tooltip = new bootstrap.Tooltip(btn, {
@@ -946,6 +1069,12 @@
                   tooltip.hide();
                   tooltip.dispose();
                 }, 1500);
+
+                // Event tracking for copy button
+                const release = releasesData.find(r => r.id === releaseId);
+                if (release) {
+                  trackCopyButtonClick(release);
+                }
               });
             }
           });
@@ -1012,7 +1141,9 @@
 
         // Next
         const nextLi = document.createElement("li");
-        nextLi.className = `page-item ${currentPage === totalPages ? "disabled" : ""}`;
+        nextLi.className = `page-item ${
+          currentPage === totalPages ? "disabled" : ""
+        }`;
         const nextLink = document.createElement("a");
         nextLink.className = "page-link";
         nextLink.href = "#";
@@ -1127,11 +1258,14 @@
           // For "User Rating" we show different icons depending on userRatingSortMode
           if (col === "User Rating") {
             if (sortConfig.userRatingSortMode === 0) {
-              header.innerHTML += '<i class="bi bi-arrow-up sort-indicator" title="Highest Avg & Most Votes"></i>';
+              header.innerHTML +=
+                '<i class="bi bi-arrow-up sort-indicator" title="Highest Avg & Most Votes"></i>';
             } else if (sortConfig.userRatingSortMode === 1) {
-              header.innerHTML += '<i class="bi bi-bar-chart sort-indicator" title="Bayesian Average"></i>';
+              header.innerHTML +=
+                '<i class="bi bi-bar-chart sort-indicator" title="Bayesian Average"></i>';
             } else {
-              header.innerHTML += '<i class="bi bi-arrow-down sort-indicator" title="Worst Rated"></i>';
+              header.innerHTML +=
+                '<i class="bi bi-arrow-down sort-indicator" title="Worst Rated"></i>';
             }
           } else if (sortKey === sortConfig.key) {
             // Generic columns
@@ -1146,6 +1280,82 @@
           const res = document.createElement("div");
           res.className = "resizer";
           header.appendChild(res);
+        });
+      }
+
+      function initializeYouTubePlayers() {
+        releasesData.forEach((release) => {
+          if (release.youtube_links) {
+            const yID = extractYouTubeID(release.youtube_links);
+            if (yID) {
+              players[release.id] = new YT.Player(`youtube-player-${release.id}`, {
+                events: {
+                  onStateChange: (event) => {
+                    // Grey out when video is paused or ended
+                    if (
+                      event.data === YT.PlayerState.PAUSED ||
+                      event.data === YT.PlayerState.ENDED
+                    ) {
+                      playedVideos[release.id] = true;
+                    }
+                  },
+                },
+              });
+            }
+          }
+        });
+      }
+
+      // This function is called by the YouTube Iframe API once it's ready
+      function onYouTubeIframeAPIReady() {
+        initializeYouTubePlayers();
+      }
+
+      // Event Tracking Functions
+
+      /**
+       * Tracks when a user applies filters or performs a search.
+       */
+      function trackFilterApplied() {
+        const genre = document.getElementById("genre").value;
+        const style = document.getElementById("style").value;
+        const yearRange = document.getElementById("year_range").value.trim();
+        const ratingRange = document.getElementById("rating_range").value.trim();
+        const priceRange = document.getElementById("price_range").value.trim();
+        const searchQuery = document.getElementById("search_query").value.trim();
+
+        gtag('event', 'filter_applied', {
+          'genre': genre || 'All',
+          'style': style || 'All',
+          'year_range': yearRange || 'All',
+          'rating_range': ratingRange || 'All',
+          'price_range': priceRange || 'All',
+          'search_query': searchQuery || 'None'
+        });
+      }
+
+      /**
+       * Tracks when a user copies a release title.
+       * @param {Object} release - The release object that was copied.
+       */
+      function trackCopyButtonClick(release) {
+        gtag('event', 'copy_title', {
+          'title': release.title,
+          'label': release.label || 'Unknown',
+          'release_id': release.id
+        });
+      }
+
+      /**
+       * Tracks when a user clicks on a release link.
+       * @param {Object} release - The release object that was clicked.
+       */
+      function trackReleaseLinkClick(release) {
+        gtag('event', 'release_link_click', {
+          'title': release.title,
+          'label': release.label || 'Unknown',
+          'release_id': release.id,
+          'url': release.link
         });
       }
     </script>
