@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <title>Top-Rated Techno Vinyl Labels of All Time (Discogs)</title>
+    <!-- Google Analytics 4 (GA4) Global Site Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW50KM0VFQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WW50KM0VFQ');
+    </script>
+    <!-- End GA4 -->
+
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -119,9 +130,15 @@
         font-weight: 700;
         font-size: 14px;
         white-space: nowrap;
+        cursor: pointer;
+        position: relative;
       }
       tbody tr {
         border-bottom: 1px solid #D7D7D7;
+        transition: opacity 0.5s ease; /* Transition for grey-out */
+      }
+      tbody tr.greyed-out {
+        opacity: 0.5;
       }
       tbody td {
         vertical-align: middle;
@@ -188,12 +205,23 @@
         margin-bottom: 16px;
       }
 
-      /* Make YouTube embeds consistent with the design */
-      iframe.table-iframe {
-        border: 0;
-        width: 220px;
-        height: 124px;
-        border-radius: 8px;
+      /* ===== Greys out interacted release rows ===== */
+      .greyed-out {
+        opacity: 0.5;
+      }
+
+      /* ===== Copy button styling ===== */
+      .copy-btn {
+        border: none;
+        background: none;
+        padding: 0;
+        cursor: pointer;
+        color: #3182ce;
+        margin-left: 0.5rem;
+        font-size: 1rem;
+      }
+      .copy-btn:hover {
+        color: #2b6cb0;
       }
     </style>
   </head>
@@ -353,9 +381,9 @@
     <!-- Bootstrap JS (with Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Example Data (Adapt to your real data) -->
+    <!-- Main JS: Filtering, Sorting, Pagination, Greying Out Releases, and Google Analytics -->
     <script>
-      // Example: Replace this with your actual releases data
+      // Replace this with your actual releases data
       const releasesData = [
         {
           "average_rating": 5.0,
@@ -418,6 +446,9 @@
         }
       });
 
+      // Retrieve interacted releases from localStorage
+      let interactedReleases = JSON.parse(localStorage.getItem("interactedReleases")) || [];
+
       document.addEventListener("DOMContentLoaded", () => {
         initFilterDropdowns();
         applyFilters();
@@ -427,6 +458,7 @@
           e.preventDefault();
           currentPage = 1;
           applyFilters();
+          trackFilterApplied(); // Track filter application
         });
       });
 
@@ -584,12 +616,14 @@
           rowsHTML += `
             <tr>
               <td class="text-center">${i + 1}</td>
-              <td
-                class="text-primary fw-semibold"
-                style="cursor: pointer;"
-                data-label-index="${i}"
-              >
-                ${labelItem.label}
+              <td>
+                <span
+                  class="text-primary fw-semibold text-decoration-none label-name"
+                  style="cursor: pointer;"
+                  data-label-index="${i}"
+                >
+                  ${labelItem.label}
+                </span>
               </td>
               <td class="text-center">${labelItem.count}</td>
               <td class="text-center">${labelItem.averageRatingCoeff.toFixed(3)}</td>
@@ -600,21 +634,19 @@
 
         tbody.innerHTML = rowsHTML;
 
-        // Handle row clicks
-        tbody.removeEventListener("click", handleLabelClick);
-        tbody.addEventListener("click", handleLabelClick);
+        // Handle label name clicks
+        const labelNames = document.querySelectorAll(".label-name");
+        labelNames.forEach((span) => {
+          span.addEventListener("click", () => {
+            const labelIndex = parseInt(span.getAttribute("data-label-index"), 10);
+            const selectedLabel = labelsData[labelIndex];
+            showLabelReleases(selectedLabel);
+            trackLabelClick(selectedLabel); // Track label click
+          });
+        });
 
         // Update pagination
         updatePaginationControls(page, totalPages);
-      }
-
-      // Label row click => show releases
-      function handleLabelClick(e) {
-        const target = e.target.closest("[data-label-index]");
-        if (!target) return;
-        const labelIndex = parseInt(target.getAttribute("data-label-index"), 10);
-        const selectedLabel = labelsData[labelIndex];
-        showLabelReleases(selectedLabel);
       }
 
       // Update pagination controls
@@ -764,17 +796,22 @@
             }
           }
 
+          // Check if the release has been interacted with
+          const isInteracted = interactedReleases.includes(rel.id);
+
           rowsHTML += `
-            <tr>
+            <tr ${isInteracted ? 'class="greyed-out"' : ''} data-release-id="${rel.id}">
               <td>
-                <a
-                  href="${rel.link}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-primary fw-semibold text-decoration-none"
+                <span
+                  class="text-primary fw-semibold text-decoration-none release-title"
+                  style="cursor: pointer;"
+                  data-release-id="${rel.id}"
                 >
                   ${rel.title}
-                </a>
+                </span>
+                <button class="copy-btn" data-release-id="${rel.id}" title="Copy Release Title">
+                  <i class="bi bi-clipboard"></i>
+                </button>
               </td>
               <td>${rel.label || "Unknown"}</td>
               <td class="text-center">${rel.year || ""}</td>
@@ -792,6 +829,114 @@
         });
 
         releasesTbody.innerHTML = rowsHTML;
+
+        // Handle release title clicks
+        const releaseTitles = document.querySelectorAll(".release-title");
+        releaseTitles.forEach((span) => {
+          span.addEventListener("click", () => {
+            const releaseId = parseInt(span.getAttribute("data-release-id"), 10);
+            markReleaseAsInteracted(releaseId);
+            trackReleaseClick(releaseId); // Track release click
+          });
+        });
+
+        // Handle copy button clicks
+        const copyButtons = document.querySelectorAll(".copy-btn");
+        copyButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const releaseId = parseInt(btn.getAttribute("data-release-id"), 10);
+            const release = releasesData.find(r => r.id === releaseId);
+            if (release) {
+              navigator.clipboard.writeText(release.title).then(() => {
+                markReleaseAsInteracted(releaseId);
+                const row = btn.closest("tr");
+                row.classList.add("greyed-out");
+                showCopyFeedback(btn);
+                trackReleaseCopy(release); // Track copy event
+              }).catch(() => {
+                // Handle copy failure if necessary
+              });
+            }
+          });
+        });
+      }
+
+      // Mark release as interacted
+      function markReleaseAsInteracted(releaseId) {
+        if (!interactedReleases.includes(releaseId)) {
+          interactedReleases.push(releaseId);
+          localStorage.setItem("interactedReleases", JSON.stringify(interactedReleases));
+          // Update the row to grey it out
+          const row = document.querySelector(`tr[data-release-id="${releaseId}"]`);
+          if (row) {
+            row.classList.add("greyed-out");
+          }
+        }
+      }
+
+      // Show copy feedback
+      function showCopyFeedback(button) {
+        const originalTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        const tooltip = new bootstrap.Tooltip(button, {
+          container: 'body',
+          trigger: 'manual'
+        });
+        tooltip.show();
+        setTimeout(() => {
+          button.setAttribute("title", originalTitle);
+          tooltip.hide();
+          tooltip.dispose();
+        }, 1500);
+      }
+
+      // Event Tracking Functions
+
+      /**
+       * Tracks when a user applies filters or performs a search.
+       */
+      function trackFilterApplied() {
+        const genre = document.getElementById("genre").value;
+        const style = document.getElementById("style").value;
+        const yearMin = document.getElementById("year_min").value.trim();
+        const yearMax = document.getElementById("year_max").value.trim();
+        const searchQuery = document.getElementById("search_query").value.trim();
+
+        gtag('event', 'filter_applied', {
+          'genre': genre || 'All',
+          'style': style || 'All',
+          'year_min': yearMin || 'All',
+          'year_max': yearMax || 'All',
+          'search_query': searchQuery || 'None'
+        });
+      }
+
+      /**
+       * Tracks when a user clicks on a release.
+       * @param {Number} releaseId - The ID of the release that was clicked.
+       */
+      function trackReleaseClick(releaseId) {
+        const release = releasesData.find(r => r.id === releaseId);
+        if (release) {
+          gtag('event', 'release_click', {
+            'release_title': release.title,
+            'label': release.label || 'Unknown',
+            'release_id': release.id,
+            'url': release.link
+          });
+        }
+      }
+
+      /**
+       * Tracks when a user copies a release's title.
+       * @param {Object} release - The release object that was copied.
+       */
+      function trackReleaseCopy(release) {
+        gtag('event', 'release_copy', {
+          'release_title': release.title,
+          'label': release.label || 'Unknown',
+          'release_id': release.id
+        });
       }
     </script>
   </body>
