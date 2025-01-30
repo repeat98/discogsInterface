@@ -30,13 +30,36 @@ def create_output_table(cursor):
             youtube_links TEXT,
             demand_coeff REAL,
             gem_value REAL,
-            lowest_price REAL
+            lowest_price REAL,
+            format TEXT
         )
     ''')
 
 def fetch_rows(input_cursor):
     try:
-        input_cursor.execute('SELECT id, title, year, genre, style, label, country, average_rating, rating_count, have, want, rating_coefficient, link, youtube_links, demand_coefficient, gem_value, lowest_price, artists_sort FROM releases')
+        input_cursor.execute('''
+            SELECT 
+                id, 
+                title, 
+                year, 
+                genre, 
+                style, 
+                label, 
+                country, 
+                average_rating, 
+                rating_count, 
+                have, 
+                want, 
+                rating_coefficient, 
+                link, 
+                youtube_links, 
+                demand_coefficient, 
+                gem_value, 
+                lowest_price, 
+                format, 
+                artists_sort 
+            FROM releases
+        ''')
         return input_cursor.fetchall()
     except sqlite3.Error as e:
         print(f"Error fetching data from input database: {e}")
@@ -84,6 +107,7 @@ def clean_and_insert_data(input_rows, output_cursor):
             demand_coefficient,
             gem_value,
             lowest_price,
+            format_,
             artists_sort
         ) = row
 
@@ -95,7 +119,7 @@ def clean_and_insert_data(input_rows, output_cursor):
 
         # Prepare data for insertion
         cleaned_row = (
-            id_,  # Retain the same ID
+            id_,                # Retain the same ID
             cleaned_title,
             year,
             genre,
@@ -111,7 +135,8 @@ def clean_and_insert_data(input_rows, output_cursor):
             first_youtube_link,
             demand_coefficient,
             gem_value,
-            lowest_price
+            lowest_price,
+            format_
         )
 
         try:
@@ -133,8 +158,9 @@ def clean_and_insert_data(input_rows, output_cursor):
                     youtube_links,
                     demand_coeff,
                     gem_value,
-                    lowest_price
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    lowest_price,
+                    format
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', cleaned_row)
         except sqlite3.IntegrityError as e:
             print(f"Skipping row with id {id_} due to integrity error: {e}")

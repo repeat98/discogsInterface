@@ -1,3 +1,11 @@
 /.DS_Store
 1975-2025_2.json
 example_db/*.csv
+example_db/1975-2025_cleaned_format.db
+example_db/1975-2025_cleaned_with_formats.json
+example_db/house_sm.json
+html templates/main_interface_v2_template copy.html
+html templates/sw.js
+html templates/template_top_artists copy.html
+html templates/template_top_labels copy.html
+scraping/clean_db.py

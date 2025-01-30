@@ -212,8 +212,20 @@
         margin: 0;
       }
 
-      /* Grayed-out state for previously interacted releases */
-      /* Transition is already handled on tbody tr */
+      /* Additional styles for centered toggle */
+      .toggle-container {
+        display: flex;
+        align-items: center;
+      }
+      .toggle-container .form-check {
+        margin: 0;
+      }
+      .form-check-label {
+        margin-left: 0.5rem;
+        font-size: 14px;
+        font-weight: 500;
+        color: #414651;
+      }
     </style>
   </head>
   <body>
@@ -314,8 +326,26 @@
           </div>
         </form>
 
-        <!-- Results Count -->
-        <div id="results-count" class="mb-2 fw-semibold"></div>
+        <!-- Container for Results Count and Exclude White Labels Toggle -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <!-- Results Count -->
+          <div id="results-count" class="fw-semibold"></div>
+
+          <!-- Exclude White Labels Toggle -->
+          <div class="toggle-container">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="exclude_white_labels"
+              />
+              <label class="form-check-label" for="exclude_white_labels">
+                Exclude White Labels
+              </label>
+            </div>
+          </div>
+        </div>
 
         <!-- Table -->
         <div class="table-container">
@@ -438,10 +468,18 @@
       <small>&copy; 2025 - Jannik Aßfalg</small>
     </footer>
 
-    <!-- Bootstrap JS (with Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Define onYouTubeIframeAPIReady before loading the Iframe API -->
+    <script>
+      function onYouTubeIframeAPIReady() {
+        youtubeApiReady = true;
+        initializeYouTubePlayers();
+      }
+    </script>
     <!-- YouTube Iframe API -->
     <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- Bootstrap JS (with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Example JSON data -->
     <script>
@@ -462,7 +500,8 @@
           "want": 180,
           "lowest_price": 20.5,
           "link": "https://www.discogs.com/",
-          "youtube_links": "https://www.youtube.com/watch?v=96XKde8YHk8"
+          "youtube_links": "https://www.youtube.com/watch?v=96XKde8YHk8",
+          "format": "Vinyl, White Label" // Example format
         },
         {
           "id": 2,
@@ -479,8 +518,28 @@
           "want": 80,
           "lowest_price": 12.0,
           "link": "https://www.discogs.com/",
-          "youtube_links": ""
+          "youtube_links": "",
+          "format": "CD, Promo" // Example format
+        },
+        {
+          "id": 3,
+          "title": "Another Release",
+          "label": "Another Label",
+          "year": "2020",
+          "genre": "Techno",
+          "style": "Deep Techno",
+          "average_rating": 4.0,
+          "rating_count": 150,
+          "demand_coeff": 1.0,
+          "gem_value": 2.5,
+          "have": 200,
+          "want": 150,
+          "lowest_price": 18.0,
+          "link": "https://www.discogs.com/",
+          "youtube_links": "https://www.youtube.com/watch?v=abcdefghijk",
+          "format": "Vinyl, Reissue" // Example format
         }
+        // Add more release objects as needed
       ];
     </script>
 
@@ -508,12 +567,16 @@
       // YouTube players
       let players = {};
 
+      // Flag to indicate if YouTube API is ready
+      let youtubeApiReady = false;
+
       document.addEventListener("DOMContentLoaded", () => {
         initializeFilters();
         applyFilters();
         applySavedColumnWidths();
         makeTableResizable();
         initTooltips();
+        initializeExcludeWhiteLabelsToggle();
       });
 
       function initTooltips() {
@@ -590,6 +653,15 @@
         trackFilterApplied(); // Track filter and search events
       });
 
+      // Initialize the Exclude White Labels toggle outside the filter form
+      function initializeExcludeWhiteLabelsToggle() {
+        const toggle = document.getElementById("exclude_white_labels");
+        toggle.addEventListener("change", () => {
+          applyFilters();
+          trackFilterApplied(); // Optionally track toggle changes as part of filter applied
+        });
+      }
+
       // Parse "year_range" as in the original code
       function parseYearRange() {
         const yr = document.getElementById("year_range").value.trim();
@@ -652,6 +724,10 @@
         const selectedGenre = document.getElementById("genre").value;
         const selectedStyle = document.getElementById("style").value;
 
+        // Exclude White Labels Toggle
+        const excludeWhiteLabels = document.getElementById("exclude_white_labels").checked;
+        const excludeFormats = ["Promo", "Test Pressing", "White Label", "Unofficial Release", "Reissue"];
+
         filteredData = releasesData.filter((release) => {
           // Check Title/Label
           const releaseLabel = release.label ? release.label.toLowerCase() : "";
@@ -687,13 +763,21 @@
           const matchesPriceRange =
             priceVal >= priceRange.min && priceVal <= priceRange.max;
 
+          // Exclude White Labels
+          let matchesExcludeWhiteLabels = true;
+          if (excludeWhiteLabels) {
+            const formats = release.format ? release.format.split(",").map(f => f.trim()) : [];
+            matchesExcludeWhiteLabels = !excludeFormats.some(excl => formats.includes(excl));
+          }
+
           return (
             matchesSearch &&
             matchesGenre &&
             matchesStyle &&
             matchesYear &&
             matchesRatingRange &&
-            matchesPriceRange
+            matchesPriceRange &&
+            matchesExcludeWhiteLabels
           );
         });
 
@@ -1005,7 +1089,10 @@
         });
 
         attachCopyHandlers();
-        initializeYouTubePlayers();
+        // Initialize YouTube Players if API is ready
+        if (youtubeApiReady) {
+          initializeYouTubePlayers();
+        }
       }
 
       function markAsInteracted(releaseId) {
@@ -1288,27 +1375,28 @@
           if (release.youtube_links) {
             const yID = extractYouTubeID(release.youtube_links);
             if (yID) {
-              players[release.id] = new YT.Player(`youtube-player-${release.id}`, {
-                events: {
-                  onStateChange: (event) => {
-                    // Grey out when video is paused or ended
-                    if (
-                      event.data === YT.PlayerState.PAUSED ||
-                      event.data === YT.PlayerState.ENDED
-                    ) {
-                      playedVideos[release.id] = true;
-                    }
+              const iframe = document.getElementById(`youtube-player-${release.id}`);
+              if (iframe && YT && YT.Player) {
+                players[release.id] = new YT.Player(iframe, {
+                  events: {
+                    onStateChange: (event) => {
+                      // Grey out when video is paused or ended
+                      if (
+                        event.data === YT.PlayerState.PAUSED ||
+                        event.data === YT.PlayerState.ENDED
+                      ) {
+                        playedVideos[release.id] = true;
+                        const tr = iframe.closest('tr');
+                        markAsInteracted(release.id);
+                        tr.classList.add("greyed-out");
+                      }
+                    },
                   },
-                },
-              });
+                });
+              }
             }
           }
         });
-      }
-
-      // This function is called by the YouTube Iframe API once it's ready
-      function onYouTubeIframeAPIReady() {
-        initializeYouTubePlayers();
       }
 
       // Event Tracking Functions
@@ -1323,6 +1411,7 @@
         const ratingRange = document.getElementById("rating_range").value.trim();
         const priceRange = document.getElementById("price_range").value.trim();
         const searchQuery = document.getElementById("search_query").value.trim();
+        const excludeWhiteLabels = document.getElementById("exclude_white_labels").checked;
 
         gtag('event', 'filter_applied', {
           'genre': genre || 'All',
@@ -1330,7 +1419,8 @@
           'year_range': yearRange || 'All',
           'rating_range': ratingRange || 'All',
           'price_range': priceRange || 'All',
-          'search_query': searchQuery || 'None'
+          'search_query': searchQuery || 'None',
+          'exclude_white_labels': excludeWhiteLabels ? 'Yes' : 'No'
         });
       }
 
